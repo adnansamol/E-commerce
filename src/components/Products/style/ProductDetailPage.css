@@ -1,0 +1,32 @@
+.detail-container {
+  display: flex;
+  width: fit-content;
+  margin: auto;
+  margin-top: 48px;
+}
+.product-image {
+  max-width: 300px;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+.detail-section {
+  margin-left: 24px;
+  padding: 0 8px;
+  width: 450px;
+}
+.product-name {
+  font-size: 28px;
+  font-weight: 400;
+  margin: 0;
+}
+.product-price {
+  font-size: 24px;
+}
+.product-description {
+  font-size: 15px;
+}
+.general-text {
+  font-size: 18px;
+  margin: 0;
+  margin-top: 8px;
+}

@@ -1,0 +1,23 @@
+.product-container {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  padding-left: 8px;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+.product-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.product-price {
+  font-size: 18px;
+  margin: 0;
+  margin-top: 8px;
+}
