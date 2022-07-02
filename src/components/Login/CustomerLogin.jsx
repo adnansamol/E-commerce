@@ -1,11 +1,10 @@
 import React from "react";
-import { useCookies } from "react-cookie";
-
+import { useState } from "react";
 import { userLogin } from "../../services/user-api";
 import "./style/CustomerLogin.css";
-let responseData = {};
+
 const CustomerLogin = () => {
-  const [cookies, setCookies] = useCookies();
+  const [isValid, setIsValid] = useState(true);
   const loginUserHandler = async (event) => {
     event.preventDefault();
 
@@ -13,25 +12,41 @@ const CustomerLogin = () => {
       email: event.target.email.value,
       password: event.target.password.value,
     };
-
-    responseData = await userLogin(user);
-    //setCookies("token", responseData.token, { path: "/" });
-    //localStorage.setItem("token", responseData.token);
+    if (isUserAuthenticated(user)) {
+      const responseData = await userLogin(user);
+    } else {
+      return;
+    }
   };
 
+  const isUserAuthenticated = (user) => {
+    console.log(isValid);
+    const regExp =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if (user.email !== "" || user.password !== "") {
+      if (user.password.length >= 8 && user.email.match(regExp)) {
+        setIsValid(true);
+        return true;
+      }
+    }
+    setIsValid(false);
+    return false;
+  };
   return (
     <form onSubmit={loginUserHandler}>
       <div className="customer-container">
         <h1 className="customer-login-title">Login</h1>
         <label className="customer-label">Email</label>
-        <input className="customer-input" name="email" type="email" required />
+        <input className="customer-input" name="email" />
         <label className="customer-label">Password</label>
-        <input
-          className="customer-input"
-          name="password"
-          type="password"
-          required
-        />
+        <input className="customer-input" name="password" type="password" />
+        {!isValid && (
+          <div className="login-error-container">
+            <div>Please enter valid credentials.</div>
+            <div>Password must be atleast 8 characters long.</div>
+          </div>
+        )}
         <button type="submit" className="customer-login-button">
           Login
         </button>

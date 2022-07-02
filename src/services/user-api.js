@@ -36,9 +36,23 @@ export const userProfile = async () => {
 
 export const userLogout = async () => {
   try {
-    const response = await axios.get(`${base_url}/user/logout`);
+    const response = await axios.get(`${base_url}/user/logout`, {
+      withCredentials: true,
+    });
     return response;
   } catch (error) {
     console.log("something went wrong in user logout api: ", error);
+  }
+};
+export const userProfileUpdate = async (updatedUserData) => {
+  try {
+    const response = await axios.put(
+      `${base_url}/user/me/update`,
+      updatedUserData,
+      { withCredentials: true }
+    );
+    return response;
+  } catch (error) {
+    console.log("something went wrong in user update api: ", error);
   }
 };
