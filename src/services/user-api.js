@@ -12,8 +12,12 @@ export const userRegister = async (userData) => {
 
 export const userLogin = async (userData) => {
   try {
-    const response = await axios.post(`${base_url}/user/login`, userData);
-    return ({ token } = response.data);
+    const response = await axios.post(`${base_url}/user/login`, userData, {
+      withCredentials: true,
+    });
+    console.log(response);
+    localStorage.setItem("token", response.data.token);
+    return response.data;
   } catch (error) {
     console.log("something went wrong in login api: ", error);
   }
@@ -21,7 +25,9 @@ export const userLogin = async (userData) => {
 
 export const userProfile = async () => {
   try {
-    const response = await axios.get(`${base_url}/user/me`);
+    const response = await axios.get(`${base_url}/user/me`, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     console.log("something went wrong in user profile api: ", error);

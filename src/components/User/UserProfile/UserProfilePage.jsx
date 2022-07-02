@@ -6,12 +6,15 @@ import { userProfile } from "../../../services/user-api";
 const UserProfilePage = () => {
   const [userInfo, setUserInfo] = useState({});
   useEffect(() => {
+    const userProfileHandler = async () => {
+      const user = await userProfile();
+
+      setUserInfo(user.user);
+      console.log(user);
+    };
     userProfileHandler();
   }, []);
-  const userProfileHandler = async () => {
-    const user = await userProfile();
-    setUserInfo((currentState) => ({ ...currentState, user }));
-  };
+
   return (
     <div>
       <h2>User Information</h2>
