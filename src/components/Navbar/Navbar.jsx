@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { LocalMall, Search } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 const Bar = styled.div`
   display: flex;
   background-color: "white";
@@ -30,7 +31,10 @@ const Login = styled.button`
   margin-left: 8px;
   background-color: salmon;
   text-align: center;
-  color: white;
+  > * {
+    color: white;
+    text-decoration: none;
+  }
 `;
 const LeftContainer = styled.div`
   display: flex;
@@ -87,7 +91,9 @@ const Navbar = () => {
           <Cart>
             <LocalMall />
           </Cart>
-          <Login>Login</Login>
+          <Login>
+            <Link to="/user/login">Login</Link>
+          </Login>
         </LeftContainer>
       </Container>
     </Bar>
