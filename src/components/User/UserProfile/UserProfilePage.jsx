@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Link, Navigate } from "react-router-dom";
 import {
   userLogout,
   userProfile,
@@ -10,6 +11,7 @@ import {
 
 const UserProfilePage = () => {
   const [userInfo, setUserInfo] = useState({});
+  const [userLoggedOut, setUserLoggedOut] = useState(false);
   useEffect(() => {
     const userProfileHandler = async () => {
       const user = await userProfile();
@@ -19,29 +21,24 @@ const UserProfilePage = () => {
     userProfileHandler();
   }, []);
 
-  const updateUserHandler = async () => {
-    const response = await userProfileUpdate({
-      first_name: "EFGH",
-      last_name: "IJKLM",
-      email: "abcxyz@gmail.com",
-      phone_number: 1234566670,
-      public_id: "public_id",
-      url: "url",
-    });
-  };
   const logoutUser = async () => {
-    await userLogout();
+    const response = await userLogout();
+    console.log(response);
+    setUserLoggedOut(true);
   };
   return (
-    <div>
-      <h2>User Information</h2>
-      <h6>First name: {userInfo.first_name}</h6>
-      <h6>Last name: {userInfo.last_name}</h6>
-      <h6>Email: {userInfo.email}</h6>
-      <h6>Phone Number: {userInfo.phone_number}</h6>
-      <button onClick={updateUserHandler}>Update user</button>
-      <button onClick={logoutUser}>Logout</button>
-    </div>
+    <>
+      {!localStorage.getItem("buzzaar") ? <Navigate to="/user/login" /> : ""}
+      <div>
+        <h2>User Information</h2>
+        <h6>First name: {userInfo.first_name}</h6>
+        <h6>Last name: {userInfo.last_name}</h6>
+        <h6>Email: {userInfo.email}</h6>
+        <h6>Phone Number: {userInfo.phone_number}</h6>
+        <Link to="/user/me/update">Edit Profile</Link>
+        <button onClick={logoutUser}>Logout</button>
+      </div>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const base_url = "https://buzzaar.herokuapp.com/api/v1";
+import { base_url } from "./backend";
 
 export const userRegister = async (userData) => {
   try {
@@ -15,9 +15,9 @@ export const userLogin = async (userData) => {
     const response = await axios.post(`${base_url}/user/login`, userData, {
       withCredentials: true,
     });
+    localStorage.setItem("buzzaar", response.headers.buzzaar);
     console.log(response);
-    localStorage.setItem("token", response.data.token);
-    return response.data;
+    return response;
   } catch (error) {
     console.log("something went wrong in login api: ", error);
   }
@@ -25,8 +25,12 @@ export const userLogin = async (userData) => {
 
 export const userProfile = async () => {
   try {
+    const buzzaar = localStorage.getItem("buzzaar");
     const response = await axios.get(`${base_url}/user/me`, {
       withCredentials: true,
+      headers: {
+        buzzaar,
+      },
     });
     return response.data;
   } catch (error) {
@@ -39,6 +43,7 @@ export const userLogout = async () => {
     const response = await axios.get(`${base_url}/user/logout`, {
       withCredentials: true,
     });
+    localStorage.removeItem("buzzaar");
     return response;
   } catch (error) {
     console.log("something went wrong in user logout api: ", error);
@@ -46,13 +51,27 @@ export const userLogout = async () => {
 };
 export const userProfileUpdate = async (updatedUserData) => {
   try {
+    const buzzaar = localStorage.getItem("buzzaar");
     const response = await axios.put(
       `${base_url}/user/me/update`,
       updatedUserData,
-      { withCredentials: true }
+      {
+        withCredentials: true,
+        headers: {
+          buzzaar,
+        },
+      }
     );
     return response;
   } catch (error) {
     console.log("something went wrong in user update api: ", error);
+  }
+};
+
+export const userForgetPassword = async (email) => {
+  try {
+    await axios.post(`${base_url}/user/password/forget`, email);
+  } catch (error) {
+    console.log("something went wrong in password forget api: ", error);
   }
 };

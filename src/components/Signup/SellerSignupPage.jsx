@@ -1,5 +1,5 @@
 import React from "react";
-import { userRegister } from "../../services/user-api";
+import { sellerRegister } from "../../services/seller-api";
 import "./style/CustomerSignupPage.css";
 
 let defaultUser = {
@@ -13,7 +13,7 @@ let defaultUser = {
     url: "url",
   },
 };
-const CustomerSignupPage = () => {
+const SellerSignupPage = () => {
   const registerFormHandler = async (event) => {
     event.preventDefault();
     const password = event.target.password.value;
@@ -29,8 +29,7 @@ const CustomerSignupPage = () => {
         public_id: "public_id",
         url: "url",
       };
-      console.log(user);
-      await userRegister(user);
+      await sellerRegister(user);
     }
   };
 
@@ -45,7 +44,7 @@ const CustomerSignupPage = () => {
   return (
     <form onSubmit={registerFormHandler}>
       <div className="signup-container">
-        <h1 className="signup-title">Register</h1>
+        <h1 className="signup-title">Become a Seller</h1>
         <label className="signup-label">First Name</label>
         <input
           className="signup-input"
@@ -88,4 +87,4 @@ const CustomerSignupPage = () => {
   );
 };
 
-export default CustomerSignupPage;
+export default SellerSignupPage;
