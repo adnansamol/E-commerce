@@ -2,6 +2,39 @@ import React from "react";
 import styled from "styled-components";
 import { LocalMall, Search } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+
+const Navbar = () => {
+  return (
+    <Bar>
+      <Container>
+        <Brand>
+          <Link to="/">Buzzaar</Link>
+        </Brand>
+        <MiddleContainer>
+          <Tab>Marketplace</Tab>
+          <Tab>Collections</Tab>
+          <Tab>Sellers</Tab>
+          <SearchBar>
+            <SearchInput />
+            <SearchIcon>
+              <Search />
+            </SearchIcon>
+          </SearchBar>
+        </MiddleContainer>
+        <LeftContainer>
+          <Cart>
+            <LocalMall />
+          </Cart>
+          <Link to="/user/login">
+            <Login>Log In</Login>
+          </Link>
+        </LeftContainer>
+      </Container>
+    </Bar>
+  );
+};
+
+export default Navbar;
 const Bar = styled.div`
   display: flex;
   background-color: "white";
@@ -15,12 +48,21 @@ const Container = styled.div`
   width: 80%;
   align-items: center;
   justify-content: space-between;
+
+  @media (min-width: 1100px) {
+    width: 60%;
+  }
 `;
 const Brand = styled.div`
+  display: flex;
   font-size: 24px;
   align-items: center;
   font-weight: 600;
   color: purple;
+  > * {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 const Login = styled.button`
   padding: 6px;
@@ -29,12 +71,11 @@ const Login = styled.button`
   border: none;
   border-radius: 4px;
   margin-left: 8px;
-  background-color: salmon;
+  background-color: #f55742;
   text-align: center;
-  > * {
-    color: white;
-    text-decoration: none;
-  }
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
 `;
 const LeftContainer = styled.div`
   display: flex;
@@ -71,33 +112,3 @@ const SearchInput = styled.input`
   width: 200px;
 `;
 const Tab = styled.div``;
-const Navbar = () => {
-  return (
-    <Bar>
-      <Container>
-        <Brand>Buzzaar</Brand>
-        <MiddleContainer>
-          <Tab>Marketplace</Tab>
-          <Tab>Collections</Tab>
-          <Tab>Sellers</Tab>
-          <SearchBar>
-            <SearchInput />
-            <SearchIcon>
-              <Search />
-            </SearchIcon>
-          </SearchBar>
-        </MiddleContainer>
-        <LeftContainer>
-          <Cart>
-            <LocalMall />
-          </Cart>
-          <Login>
-            <Link to="/user/login">Login</Link>
-          </Login>
-        </LeftContainer>
-      </Container>
-    </Bar>
-  );
-};
-
-export default Navbar;

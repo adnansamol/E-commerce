@@ -6,7 +6,6 @@ import Products from "../Products/Products";
 const HomePage = () => {
   return (
     <>
-      <Link to="/user/login">Login</Link>
       <Products />
     </>
   );
