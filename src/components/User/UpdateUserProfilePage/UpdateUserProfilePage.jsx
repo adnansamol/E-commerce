@@ -6,6 +6,7 @@ import { colors } from "../../../constants/colors";
 import Navbar from "../../Navbar/Navbar";
 import { Link } from "react-router-dom";
 import Footer from "../../Footer/Footer";
+import Sidebar from "../../UI/Sidebar";
 const UpdateUserProfilePage = () => {
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -52,12 +53,7 @@ const UpdateUserProfilePage = () => {
               </Username>
             </ProfileContainer>
             <BottomSection>
-              <Sidebar>
-                <Sidetab>Profile</Sidetab>
-                <Sidetab>Orders</Sidetab>
-                <Sidetab>Addresses</Sidetab>
-                <Sidetab>Add Products</Sidetab>
-              </Sidebar>
+              <Sidebar />
               <ProfileDetail>
                 <div
                   style={{
@@ -101,7 +97,7 @@ const UpdateUserProfilePage = () => {
                     <Input id="lname" defaultValue={userInfo.last_name} />
                   </div>
                 </div>
-                <div style={{ display: " flex" }}>
+                <div style={{ display: " flex", border: "1px solid red" }}>
                   <div style={{ marginRight: 60 }}>
                     <Label>Email</Label>
                     <Input id="email" defaultValue={userInfo.email} />
@@ -136,19 +132,7 @@ const Container = styled.div`
 const BottomSection = styled.div`
   display: flex;
   margin-top: 20px;
-`;
-const Sidebar = styled.div`
-  margin-right: 12px;
-`;
-const Sidetab = styled.div`
-  width: 220px;
-  font-size: 16px;
-  font-weight: 500;
-  background-color: white;
-  margin-bottom: 8px;
-  padding: 15px 15px;
-  border-radius: 6px;
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid red;
 `;
 const ProfileContainer = styled.div`
   display: flex;
@@ -217,6 +201,10 @@ const Input = styled.input`
     outline: none;
     border: 1px solid ${colors.primary500};
   }
+
+  @media (max-width: 1400px) {
+    width: 170px;
+  }
 `;
 const Text = styled.div`
   font-size: 18px;
@@ -225,17 +213,6 @@ const Text = styled.div`
   > last-child {
     margin-top: 4px;
   }
-`;
-const Logout = styled.button`
-  display: flex;
-  align-items: center;
-  border: 1px solid ${colors.error500};
-  margin-top: 20px;
-  padding: 6px 15px;
-  background-color: white;
-  font-size: 16px;
-  color: ${colors.error500};
-  cursor: pointer;
 `;
 const LoadingContainer = styled.div`
   margin: auto;

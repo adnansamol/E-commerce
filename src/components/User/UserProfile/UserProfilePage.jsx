@@ -9,10 +9,12 @@ import { colors } from "../../../constants/colors";
 import { userLogout, userProfile } from "../../../services/user-api";
 import Footer from "../../Footer/Footer";
 import Navbar from "../../Navbar/Navbar";
+import Sidebar from "../../UI/Sidebar";
 const UserProfilePage = () => {
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [userLoggedOut, setUserLoggedOut] = useState(false);
+
   useEffect(() => {
     const userProfileHandler = async () => {
       setIsLoading(true);
@@ -48,12 +50,7 @@ const UserProfilePage = () => {
               </Username>
             </ProfileContainer>
             <BottomSection>
-              <Sidebar>
-                <Sidetab>Profile</Sidetab>
-                <Sidetab>Orders</Sidetab>
-                <Sidetab>Addresses</Sidetab>
-                <Sidetab>Add Products</Sidetab>
-              </Sidebar>
+              <Sidebar />
               <ProfileDetail>
                 <div
                   style={{
@@ -116,19 +113,7 @@ const BottomSection = styled.div`
   display: flex;
   margin-top: 20px;
 `;
-const Sidebar = styled.div`
-  margin-right: 12px;
-`;
-const Sidetab = styled.div`
-  width: 220px;
-  font-size: 16px;
-  font-weight: 500;
-  background-color: white;
-  margin-bottom: 8px;
-  padding: 15px 15px;
-  border-radius: 6px;
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
-`;
+
 const ProfileContainer = styled.div`
   display: flex;
   align-items: flex-end;
