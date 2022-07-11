@@ -5,7 +5,7 @@ import SellerLoginPage from "./components/Login/SellerLoginPage";
 import CustomerSignupPage from "./components/Signup/CustomerSignupPage";
 import ProductDetailPage from "./components/Products/ProductDetailPage";
 import UserProfilePage from "./components/User/UserProfile/UserProfilePage";
-import UpdateUserProfilePage from "./components/UpdateUserProfilePage/UpdateUserProfilePage";
+import UpdateUserProfilePage from "./components/User/UpdateUserProfilePage/UpdateUserProfilePage";
 import SellerSignupPage from "./components/Signup/SellerSignupPage";
 import SellerProfilePage from "./components/Seller/SellerProfilePage";
 import CreateProductPage from "./components/Product/CreateProductPage";
@@ -14,7 +14,6 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Navbar />
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route exact path="/user/login" element={<CustomerLogin />} />

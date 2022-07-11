@@ -1,6 +1,5 @@
 import React from "react";
 import { sellerRegister } from "../../services/seller-api";
-import "./style/CustomerSignupPage.css";
 
 let defaultUser = {
   first_name: "",

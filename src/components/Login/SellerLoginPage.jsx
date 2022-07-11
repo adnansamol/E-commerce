@@ -2,7 +2,6 @@ import React from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { sellerLogin } from "../../services/seller-api";
-import "./style/SellerLoginPage.css";
 
 const SellerLogin = () => {
   const [isValid, setIsValid] = useState({ valid: true, message: "" });

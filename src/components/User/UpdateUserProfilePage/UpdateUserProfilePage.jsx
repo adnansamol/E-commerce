@@ -1,18 +1,14 @@
-import { CreateOutlined } from "@material-ui/icons";
-import axios from "axios";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { Link, Navigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+import { userProfileUpdate, userProfile } from "../../../services/user-api";
 import styled, { keyframes } from "styled-components";
 import { colors } from "../../../constants/colors";
-import { userLogout, userProfile } from "../../../services/user-api";
-import Footer from "../../Footer/Footer";
 import Navbar from "../../Navbar/Navbar";
-const UserProfilePage = () => {
+import { Link } from "react-router-dom";
+import Footer from "../../Footer/Footer";
+const UpdateUserProfilePage = () => {
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [userLoggedOut, setUserLoggedOut] = useState(false);
   useEffect(() => {
     const userProfileHandler = async () => {
       setIsLoading(true);
@@ -23,21 +19,29 @@ const UserProfilePage = () => {
     userProfileHandler();
   }, []);
 
-  const logoutUser = async () => {
-    const response = await userLogout();
-    console.log(response);
-    setUserLoggedOut(true);
+  const navigate = useNavigate();
+  const updateUserHandler = async (event) => {
+    event.preventDefault();
+
+    const response = await userProfileUpdate({
+      first_name: document.getElementById("fname").value,
+      last_name: document.getElementById("lname").value,
+      email: document.getElementById("email").value,
+      phone_number: +document.getElementById("phone").value,
+      public_id: "public_id",
+      url: "url",
+    });
+    navigate("/user/me");
   };
   return (
     <>
-      {!localStorage.getItem("buzzaar") ? <Navigate to="/" /> : ""}
-      <Navbar />
       {isLoading ? (
         <LoadingContainer>
           <LoadingWheel></LoadingWheel>
         </LoadingContainer>
       ) : (
         <>
+          <Navbar />
           <Container>
             <ProfileContainer>
               <ProfilePicture>
@@ -62,33 +66,51 @@ const UserProfilePage = () => {
                     justifyContent: "space-between",
                   }}
                 >
-                  <h2>Profile</h2>
+                  <h2 style={{ flex: 1 }}>My Account</h2>
+
                   <EditProfile>
-                    <CreateOutlined />
-                    <Link to="/user/me/update">Edit Profile</Link>
+                    <Link to="/user/me">Discard</Link>
+                  </EditProfile>
+                  <EditProfile
+                    onClick={updateUserHandler}
+                    style={{ marginLeft: 15 }}
+                  >
+                    Update Info
                   </EditProfile>
                 </div>
                 <Label
                   style={{ marginBottom: 30, fontWeight: 500, fontSize: 16 }}
                 >
-                  Join date:{" "}
-                  {new Date(userInfo.createdAt).toLocaleDateString("en-us", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
+                  View and edit your personal details below.
                 </Label>
                 <hr />
-                <h3>About</h3>
-                <Label>First Name</Label>
-                <Text>{userInfo.first_name}</Text>
-                <Label>Last Name</Label>
-                <Text>{userInfo.last_name}</Text>
-                <Label>Email</Label>
-                <Text>{userInfo.email}</Text>
-                <Label>Phone</Label>
-                <Text>{userInfo.phone_number}</Text>
-                <Logout onClick={logoutUser}>Logout</Logout>
+                <h3>Account</h3>
+                <Label
+                  style={{ marginBottom: 30, fontWeight: 500, fontSize: 16 }}
+                >
+                  Update and Edit the information you share with the community
+                </Label>
+
+                <div style={{ display: " flex" }}>
+                  <div style={{ marginRight: 60 }}>
+                    <Label>First Name</Label>
+                    <Input id="fname" defaultValue={userInfo.first_name} />
+                  </div>
+                  <div>
+                    <Label>Last Name</Label>
+                    <Input id="lname" defaultValue={userInfo.last_name} />
+                  </div>
+                </div>
+                <div style={{ display: " flex" }}>
+                  <div style={{ marginRight: 60 }}>
+                    <Label>Email</Label>
+                    <Input id="email" defaultValue={userInfo.email} />
+                  </div>
+                  <div>
+                    <Label>Phone Number</Label>
+                    <Input id="phone" defaultValue={userInfo.phone_number} />
+                  </div>
+                </div>
               </ProfileDetail>
             </BottomSection>
           </Container>
@@ -99,8 +121,7 @@ const UserProfilePage = () => {
   );
 };
 
-export default UserProfilePage;
-
+export default UpdateUserProfilePage;
 const Container = styled.div`
   display flex;
   flex-direction: column;
@@ -171,13 +192,31 @@ const EditProfile = styled.div`
   align-items: center;
   border: 1px solid ${colors.primary600};
   padding: 6px 15px;
+  border-radius: 10px;
+  cursor: pointer;
   * {
     text-decoration: none;
     color: ${colors.primary600};
   }
+  &:last-child {
+    background-color: ${colors.primary600};
+    color: white;
+  }
 `;
 const Label = styled.div`
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 12px;
+`;
+const Input = styled.input`
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  width: 280px;
+  padding: 12px;
+  margin-bottom: 12px;
+  &:focus {
+    outline: none;
+    border: 1px solid ${colors.primary500};
+  }
 `;
 const Text = styled.div`
   font-size: 18px;
