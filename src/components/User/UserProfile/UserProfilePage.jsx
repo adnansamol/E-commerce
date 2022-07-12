@@ -101,12 +101,12 @@ export default UserProfilePage;
 const Container = styled.div`
   display flex;
   flex-direction: column;
-  width: 81%;
+  width: 70%;
   margin: auto;
   margin-top: 20px;
   margin-bottom: 100px;
-  @media (min-width: 1400px){
-    width: 58%;
+  @media (min-width: 1920px){
+    width: 55%;
   }
 `;
 const BottomSection = styled.div`
