@@ -6,6 +6,7 @@ import Loading from "../../UI/Loading";
 import Navbar from "../../Navbar/Navbar";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Footer from "../../Footer/Footer";
 const OrdersPage = () => {
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -42,6 +43,7 @@ const OrdersPage = () => {
       ) : (
         <ProfileUI renderComponent={orderComponent} userInfo={userInfo} />
       )}
+      <Footer/>
     </>
   );
 };

@@ -50,16 +50,9 @@ const LeftContainer = styled.div`
 `;
 const RightContainer = styled.div`
   display: flex;
-<<<<<<< Updated upstream
-  margin-left: 200px;
-
-  @media (min-width: 1400px) {
-    margin-left: 550px;
-=======
   margin-left: 300px;
   @media (min-width: 1920px) {
     margin-left: 600px;
->>>>>>> Stashed changes
   }
 `;
 
