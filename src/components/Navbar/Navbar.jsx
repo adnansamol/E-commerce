@@ -95,20 +95,7 @@ const Login = styled.button`
   text-decoration: none;
   cursor: pointer;
 `;
-const Dropdown = styled.select`
-  padding: 4px;
-  font-size: 14px;
-  width: 80px;
-  height: 36px;
-  border: none;
-  border-radius: 4px;
-  margin-left: 12px;
-  background-color: #f55742;
-  text-align: center;
-  color: white;
-  text-decoration: none;
-  cursor: pointer;
-`;
+
 const MiddleContainer = styled.div`
   display: flex;
   width: 27%;
@@ -133,7 +120,7 @@ const SearchBar = styled.div`
   display: flex;
   width: 290px;
   border-radius: 4px;
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
   padding: 2px;
   align-items: center;
 `;
@@ -150,4 +137,6 @@ const SearchInput = styled.input`
   width: 250px;
   height: 30px;
 `;
-const Tab = styled.div``;
+const Tab = styled.div`
+  cursor: pointer;
+`;

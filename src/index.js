@@ -2,6 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import { CookiesProvider } from "react-cookie";
+import UserContextProvider from "./context/user-context";
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+root.render(
+  <UserContextProvider>
+    <App />
+  </UserContextProvider>
+);

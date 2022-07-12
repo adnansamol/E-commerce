@@ -1,5 +1,5 @@
 import React from "react";
-import { sellerRegister } from "../../services/seller-api";
+import { sellerRegister } from "../../../services/seller-api";
 
 let defaultUser = {
   first_name: "",

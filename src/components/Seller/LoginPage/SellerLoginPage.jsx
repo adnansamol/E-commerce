@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
-import { sellerLogin } from "../../services/seller-api";
+import { sellerLogin } from "../../../services/seller-api";
 
 const SellerLogin = () => {
   const [isValid, setIsValid] = useState({ valid: true, message: "" });

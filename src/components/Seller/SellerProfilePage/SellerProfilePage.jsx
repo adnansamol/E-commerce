@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { sellerProfile } from "../../services/seller-api";
+import { sellerProfile } from "../../../services/seller-api";
 
 const SellerProfilePage = () => {
   const [sellerInfo, setSellerInfo] = useState({});

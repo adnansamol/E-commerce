@@ -1,6 +1,6 @@
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../../constants/colors";
 const Sidebar = () => {
@@ -14,20 +14,42 @@ const Sidebar = () => {
       case "/user/me/orders":
         setCurrentTab("Orders");
         break;
+      case "/user/me/addresses":
+        setCurrentTab("Addresses");
+        break;
       default:
         break;
     }
   });
   return (
     <Bar>
-      <Sidetab
-        style={currentTab === "Profile" ? { color: colors.primary600 } : ""}
+      <Link style={{ color: "inherit", textDecoration: "none" }} to="/user/me">
+        <Sidetab
+          style={currentTab === "Profile" ? { color: colors.primary600 } : {}}
+        >
+          Profile
+        </Sidetab>
+      </Link>
+      <Link
+        style={{ color: "inherit", textDecoration: "none" }}
+        to="/user/me/orders"
       >
-        Profile
+        <Sidetab
+          style={currentTab === "Orders" ? { color: colors.primary600 } : {}}
+        >
+          Orders
+        </Sidetab>
+      </Link>
+      <Sidetab
+        style={currentTab === "Addresses" ? { color: colors.primary600 } : {}}
+      >
+        Addresses
       </Sidetab>
-      <Sidetab>Orders</Sidetab>
-      <Sidetab>Addresses</Sidetab>
-      <Sidetab>Add Products</Sidetab>
+      <Sidetab
+        style={currentTab === "AddProducts" ? { color: colors.primary600 } : {}}
+      >
+        Add Products
+      </Sidetab>
     </Bar>
   );
 };
@@ -37,9 +59,12 @@ export default Sidebar;
 const Bar = styled.div`
   margin-right: 12px;
 `;
+
 const Sidetab = styled.div`
+  text-decoration: none;
   width: 220px;
   font-size: 16px;
+  color: black;
   font-weight: 500;
   background-color: white;
   margin-bottom: 8px;

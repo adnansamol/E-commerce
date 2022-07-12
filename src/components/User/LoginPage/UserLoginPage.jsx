@@ -2,14 +2,17 @@ import React from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { userLogin } from "../../services/user-api";
+import { userLogin } from "../../../services/user-api";
 import styled from "styled-components";
 import { Close } from "@material-ui/icons";
-import { colors } from "../../constants/colors";
-import { red } from "@material-ui/core/colors";
-const CustomerLogin = () => {
+import { colors } from "../../../constants/colors";
+import { UserContext } from "../../../context/user-context";
+import { useContext } from "react";
+const UserLoginPage = () => {
   const [isValid, setIsValid] = useState({ valid: true, message: "" });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const userCtx = useContext(UserContext);
   const loginUserHandler = async (event) => {
     event.preventDefault();
 
@@ -18,15 +21,16 @@ const CustomerLogin = () => {
       password: event.target.password.value,
     };
     if (isUserAuthenticated(user)) {
+      setIsLoading(true);
       const responseData = await userLogin(user);
-
-      console.log(responseData);
+      setIsLoading(false);
       if (responseData === undefined) {
         setIsValid({
           valid: false,
           message: <Error>Account does not exist! </Error>,
         });
       } else {
+        userCtx.setIsAuth(true);
         navigate("/");
       }
     }
@@ -67,19 +71,19 @@ const CustomerLogin = () => {
                 New to this site?<Link to="/user/register"> Sign Up</Link>
               </Prompt>
               <Label>Email</Label>
-              <Input className="customer-input" name="email" />
+              <Input name="email" />
               <Label>Password</Label>
-              <Input
-                className="customer-input"
-                name="password"
-                type="password"
-              />
+              <Input name="password" type="password" />
               {!isValid.valid && isValid.message}
-              <Link className="forgot-password" to="/user/password/forget">
+              <Link to="/user/password/forget">
                 <ForgotPassword>Forgot Password?</ForgotPassword>
               </Link>
-              <Button type="submit" className="customer-login-button">
-                Log In
+              <Button
+                type="submit"
+                style={isLoading ? { backgroundColor: "grey" } : {}}
+                disabled={isLoading ? true : false}
+              >
+                {isLoading ? "Logging in..." : "Log In"}
               </Button>
             </Container>
           </form>
@@ -89,7 +93,7 @@ const CustomerLogin = () => {
   );
 };
 
-export default CustomerLogin;
+export default UserLoginPage;
 
 const Container = styled.div`
   width: fit-content;

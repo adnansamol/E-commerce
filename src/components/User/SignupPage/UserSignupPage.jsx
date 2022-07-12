@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { userRegister } from "../../services/user-api";
+import { userRegister } from "../../../services/user-api";
 import styled from "styled-components";
 import { Close } from "@material-ui/icons";
-import { colors } from "../../constants/colors";
+import { colors } from "../../../constants/colors";
 let defaultUser = {
   first_name: "",
   last_name: "",
@@ -15,7 +15,7 @@ let defaultUser = {
     url: "url",
   },
 };
-const CustomerSignupPage = () => {
+const UserSignupPage = () => {
   const registerFormHandler = async (event) => {
     event.preventDefault();
     const password = event.target.password.value;
@@ -100,7 +100,7 @@ const CustomerSignupPage = () => {
   );
 };
 
-export default CustomerSignupPage;
+export default UserSignupPage;
 
 const Container = styled.div`
   width: fit-content;
