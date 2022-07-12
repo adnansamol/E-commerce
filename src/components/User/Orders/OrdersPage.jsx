@@ -41,9 +41,12 @@ const OrdersPage = () => {
       {isLoading ? (
         <Loading />
       ) : (
+        <>
         <ProfileUI renderComponent={orderComponent} userInfo={userInfo} />
+        <Footer/>
+        </>
       )}
-      <Footer/>
+      
     </>
   );
 };
