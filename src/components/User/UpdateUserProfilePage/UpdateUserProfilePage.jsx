@@ -193,7 +193,7 @@ const Label = styled.div`
 `;
 const Input = styled.input`
   border: 1px solid rgba(0, 0, 0, 0.5);
-  width: 280px;
+  width: 170px;
   padding: 12px;
   margin-bottom: 12px;
   &:focus {
@@ -201,8 +201,8 @@ const Input = styled.input`
     border: 1px solid ${colors.primary500};
   }
 
-  @media (max-width: 1920px) {
-    width: 170px;
+  @media (min-width: 1920px) {
+    width: 280px;
   }
 `;
 const Text = styled.div`
