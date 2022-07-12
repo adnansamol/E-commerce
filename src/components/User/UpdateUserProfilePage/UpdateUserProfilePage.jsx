@@ -97,7 +97,7 @@ const UpdateUserProfilePage = () => {
                     <Input id="lname" defaultValue={userInfo.last_name} />
                   </div>
                 </div>
-                <div style={{ display: " flex", border: "1px solid red" }}>
+                <div style={{ display: " flex" }}>
                   <div style={{ marginRight: 60 }}>
                     <Label>Email</Label>
                     <Input id="email" defaultValue={userInfo.email} />
@@ -125,14 +125,13 @@ const Container = styled.div`
   margin: auto;
   margin-top: 20px;
   margin-bottom: 100px;
-  @media (min-width: 1400px){
+  @media (min-width: 1800px){
     width: 58%;
   }
 `;
 const BottomSection = styled.div`
   display: flex;
   margin-top: 20px;
-  border: 1px solid red;
 `;
 const ProfileContainer = styled.div`
   display: flex;
@@ -202,7 +201,7 @@ const Input = styled.input`
     border: 1px solid ${colors.primary500};
   }
 
-  @media (max-width: 1400px) {
+  @media (max-width: 1800px) {
     width: 170px;
   }
 `;

@@ -68,7 +68,7 @@ const Container = styled.div`
   width: 90%;
   align-items: center;
 
-  @media (min-width: 1400px) {
+  @media (min-width: 1920px) {
     width: 65%;
   }
 `;
