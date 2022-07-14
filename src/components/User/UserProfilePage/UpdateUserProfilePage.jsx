@@ -14,7 +14,6 @@ const UpdateUserProfilePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const userProfileHandler = async () => {
-      setIsLoading(true);
       const user = await userProfile();
       setUserInfo(user.user);
       setIsLoading(false);
@@ -94,9 +93,9 @@ const UpdateUserProfilePage = () => {
       ) : (
         <>
           <ProfileUI renderComponent={profileComponent} userInfo={userInfo} />
-          <Footer />
         </>
       )}
+      <Footer />
     </>
   );
 };

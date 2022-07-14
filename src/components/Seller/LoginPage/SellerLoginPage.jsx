@@ -2,9 +2,14 @@ import React from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { sellerLogin } from "../../../services/seller-api";
+import { useContext } from "react";
+import { ProductContext } from "../../../context/product-context";
 
 const SellerLogin = () => {
   const [isValid, setIsValid] = useState({ valid: true, message: "" });
+  const { products } = useContext(ProductContext);
+
+  console.log(products);
   const loginSellerHandler = async (event) => {
     event.preventDefault();
 

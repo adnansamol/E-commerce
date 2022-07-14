@@ -41,6 +41,9 @@ export default Footer;
 const FooterContainer = styled.div`
   background-color: white;
   display: flex;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   height: 240px;
   align-items: center;
   box-shadow: 1px 0px 4px rgba(0, 0, 0, 0.3);
@@ -50,7 +53,7 @@ const LeftContainer = styled.div`
 `;
 const RightContainer = styled.div`
   display: flex;
-  margin-left: 300px;
+  margin-left: 250px;
   @media (min-width: 1920px) {
     margin-left: 600px;
   }

@@ -77,7 +77,7 @@ const Brand = styled.div`
   font-size: 24px;
   font-weight: 600;
 
-  > * {
+  * {
     width: 120px;
   }
 `;

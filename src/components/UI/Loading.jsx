@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { colors } from "../../constants/colors";
-const Loading = ({ color }) => {
+const Loading = () => {
   return (
     <LoadingContainer>
       <LoadingWheel></LoadingWheel>
@@ -16,9 +16,10 @@ const LoadingKeyframes = keyframes`
   to  {transform: rotate(360deg);}
 `;
 const LoadingContainer = styled.div`
-  margin: auto;
-  margin-top: 200px;
-  width: fit-content;
+  display: flex;
+  margin: 200px;
+  align-items: center;
+  justify-content: center;
 `;
 const LoadingWheel = styled.div`
   width: 60px;

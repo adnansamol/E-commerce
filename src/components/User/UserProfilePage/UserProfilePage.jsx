@@ -17,7 +17,6 @@ const UserProfilePage = () => {
 
   useEffect(() => {
     const userProfileHandler = async () => {
-      setIsLoading(true);
       const user = await userProfile();
       setUserInfo(user.user);
       setIsLoading(false);
@@ -75,9 +74,9 @@ const UserProfilePage = () => {
       ) : (
         <>
           <ProfileUI renderComponent={profileComponent} userInfo={userInfo} />
-          <Footer />
         </>
       )}
+      <Footer />
     </>
   );
 };
