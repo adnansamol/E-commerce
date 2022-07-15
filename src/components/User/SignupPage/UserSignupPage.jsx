@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { userRegister } from "../../../services/user-api";
 import styled from "styled-components";
-import { Close } from "@material-ui/icons";
+// import { Close } from "@material-ui/icons";
 import { colors } from "../../../constants/colors";
 let defaultUser = {
   first_name: "",
@@ -48,7 +48,7 @@ const UserSignupPage = () => {
     <>
       <CloseIcon>
         <Link style={{ color: "black" }} to="/">
-          <Close style={{ fontSize: 28 }} />
+          {/* <Close style={{ fontSize: 28 }} /> */}X
         </Link>
       </CloseIcon>
       <form onSubmit={registerFormHandler}>

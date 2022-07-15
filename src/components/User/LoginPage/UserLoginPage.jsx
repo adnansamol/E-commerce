@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { userLogin } from "../../../services/user-api";
 import styled from "styled-components";
-import { Close } from "@material-ui/icons";
+// import { Close } from "@material-ui/icons";
 import { colors } from "../../../constants/colors";
 import { UserContext } from "../../../context/user-context";
 import { useContext } from "react";
@@ -61,7 +61,7 @@ const UserLoginPage = () => {
         <>
           <CloseIcon>
             <Link style={{ color: "black" }} to="/">
-              <Close style={{ fontSize: 28 }} />
+              {/* <Close style={{ fontSize: 28 }} /> */}X
             </Link>
           </CloseIcon>
           <form onSubmit={loginUserHandler}>
