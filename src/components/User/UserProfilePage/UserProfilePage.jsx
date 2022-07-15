@@ -1,4 +1,4 @@
-import { CreateOutlined } from "@material-ui/icons";
+// import { CreateOutlined } from "@material-ui/icons";
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -41,7 +41,7 @@ const UserProfilePage = () => {
       >
         <h2>Profile</h2>
         <EditProfile>
-          <CreateOutlined />
+          {/* <CreateOutlined /> */}
           <Link to="/user/me/update">Edit Profile</Link>
         </EditProfile>
       </div>

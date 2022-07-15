@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import styled from "styled-components";
 import { getAllProducts } from "../../services/product-api";
 import Carousel from "../Carousel/Carousel";
 import Footer from "../Footer/Footer";
@@ -27,7 +28,9 @@ const HomePage = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <Products title="NEW COLLECTION" products={products} />
+        <Container>
+          <Products title="NEW COLLECTION" products={products} />
+        </Container>
       )}
       <Footer />
     </>
@@ -35,3 +38,9 @@ const HomePage = () => {
 };
 
 export default HomePage;
+const Container = styled.div`
+  @media (min-width: 1920px) {
+    width: fit-content;
+    margin: auto;
+  }
+`;

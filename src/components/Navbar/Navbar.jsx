@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { AccountCircle, LocalMall, Search } from "@material-ui/icons";
+// import { AccountCircle, LocalMall, Search } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -32,13 +32,9 @@ const Navbar = () => {
         <RightContainer>
           <SearchBar>
             <SearchInput placeholder="Search for product" />
-            <SearchIcon>
-              <Search />
-            </SearchIcon>
+            <SearchIcon>{/* <Search /> */}</SearchIcon>
           </SearchBar>
-          <Cart>
-            <LocalMall />
-          </Cart>
+          <Cart>{/* <LocalMall /> */}</Cart>
           {isLoggedIn ? (
             <Link to="/user/me">
               <Login>Profile</Login>
