@@ -11,7 +11,7 @@ const UserContextProvider = ({ children }) => {
       setIsAuth(false);
     }
     console.log(isAuth);
-  }, [isAuth, setIsAuth]);
+  }, []);
   return (
     <UserContext.Provider value={{ isAuth, setIsAuth }}>
       {children}

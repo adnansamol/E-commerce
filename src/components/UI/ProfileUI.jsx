@@ -14,7 +14,7 @@ const ProfileUI = ({ renderComponent, userInfo }) => {
         </Username>
       </ProfileContainer>
       <BottomSection>
-        <Sidebar />
+        <Sidebar userInfo={userInfo} />
         {renderComponent}
       </BottomSection>
     </Container>

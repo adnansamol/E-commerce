@@ -18,6 +18,7 @@ const Container = styled.div`
   flex-direction: column;
   padding-left: 12px;
   width: 250px;
+  background-color: white;
 `;
 const Title = styled.p`
   font-size: 24px;

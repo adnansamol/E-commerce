@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../../constants/colors";
-const Sidebar = () => {
+const Sidebar = ({ userInfo }) => {
   const [currentTab, setCurrentTab] = useState("Profile");
 
   useEffect(() => {
@@ -45,11 +45,15 @@ const Sidebar = () => {
       >
         Addresses
       </Sidetab>
-      <Sidetab
-        style={currentTab === "AddProducts" ? { color: colors.primary600 } : {}}
-      >
-        Add Products
-      </Sidetab>
+      {userInfo.role === "seller" && (
+        <Sidetab
+          style={
+            currentTab === "AddProducts" ? { color: colors.primary600 } : {}
+          }
+        >
+          Add Products
+        </Sidetab>
+      )}
     </Bar>
   );
 };

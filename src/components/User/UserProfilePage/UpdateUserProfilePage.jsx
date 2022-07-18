@@ -6,7 +6,6 @@ import { colors } from "../../../constants/colors";
 import Navbar from "../../Navbar/Navbar";
 import { Link } from "react-router-dom";
 import Footer from "../../Footer/Footer";
-import Sidebar from "../../UI/Sidebar";
 import Loading from "../../UI/Loading";
 import ProfileUI from "../../UI/ProfileUI";
 const UpdateUserProfilePage = () => {

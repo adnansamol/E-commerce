@@ -8,29 +8,31 @@ const Input = styled.input``;
 const Button = styled.button``;
 
 const CreateProductPage = () => {
-  const [seller, setSeller] = useState();
+  const images = [];
 
-  useEffect(() => {
-    const fetchSellerId = async () => {
-      const { _id } = await sellerProfile();
-      setSeller(_id);
-    };
-    //fetchSellerId();
-  });
   const createProductHandler = async (event) => {
     event.preventDefault();
+    for (const file of event.target.images.files) {
+      images.push(file);
+    }
+    console.log(images);
+
     const product = {
       name: event.target.name.value,
       description: event.target.description.value,
-      price: +event.target.description.value,
+      price: +event.target.price.value,
       category: "623f2d1173cbf70cf448f0f5",
       colour: "red,blue",
       size: "S,M,L",
       stock: event.target.stock.value,
-      images: event.target.images.value,
+      images: images,
     };
     const response = await createProduct(product);
     console.log(response);
+
+    for (const file of event.target.images.files) {
+      images.pop(file);
+    }
   };
   return (
     <Container>

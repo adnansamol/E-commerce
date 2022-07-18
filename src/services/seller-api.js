@@ -32,6 +32,7 @@ export const sellerProfile = async () => {
         buzzaar,
       },
     });
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log("something went wrong in seller profile api: ", error);
