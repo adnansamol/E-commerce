@@ -46,13 +46,16 @@ const Sidebar = ({ userInfo }) => {
         Addresses
       </Sidetab>
       {userInfo.role === "seller" && (
-        <Sidetab
-          style={
-            currentTab === "AddProducts" ? { color: colors.primary600 } : {}
-          }
+        <Link
+          style={{ color: "inherit", textDecoration: "none" }}
+          to="/product/create"
         >
-          Add Products
-        </Sidetab>
+          <Sidetab
+            style={currentTab === "Orders" ? { color: colors.primary600 } : {}}
+          >
+            Add Product
+          </Sidetab>
+        </Link>
       )}
     </Bar>
   );

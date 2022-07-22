@@ -8,15 +8,16 @@ const Input = styled.input``;
 const Button = styled.button``;
 
 const CreateProductPage = () => {
-  const images = [];
-
+  const [files, setFiles] = useState([]);
+  const [file, setFile] = useState({});
+  const imageUploadHandler = (event) => {
+    [...event.target.files].forEach((file) =>
+      setFiles((curr) => [...curr, file])
+    );
+  };
+  console.log(files);
   const createProductHandler = async (event) => {
     event.preventDefault();
-    for (const file of event.target.images.files) {
-      images.push(file);
-    }
-    console.log(images);
-
     const product = {
       name: event.target.name.value,
       description: event.target.description.value,
@@ -25,19 +26,21 @@ const CreateProductPage = () => {
       colour: "red,blue",
       size: "S,M,L",
       stock: event.target.stock.value,
-      images: images,
+      images: files,
     };
     const response = await createProduct(product);
     console.log(response);
-
-    for (const file of event.target.images.files) {
-      images.pop(file);
-    }
   };
+
   return (
     <Container>
       <form onSubmit={createProductHandler}>
-        <Input type="file" name="images" multiple />
+        <Input
+          type="file"
+          onChange={imageUploadHandler}
+          name="images"
+          multiple
+        />
         Product name: <Input name="name" />
         Product Description: <Input name="description" />
         Product price: <Input name="price" />

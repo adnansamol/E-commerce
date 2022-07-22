@@ -85,6 +85,17 @@ const UserLoginPage = () => {
               >
                 {isLoading ? "Logging in..." : "Log In"}
               </Button>
+              <Text style={{ textAlign: "center" }}>OR</Text>
+              <Button
+                onClick={() => navigate("/seller/login")}
+                style={{
+                  backgroundColor: "white",
+                  border: "1px solid black",
+                  color: "black",
+                }}
+              >
+                Login to Business account
+              </Button>
             </Container>
           </form>
         </>
@@ -143,10 +154,15 @@ const Input = styled.input`
     border-bottom: 1px solid black;
   }
 `;
+const Text = styled.div`
+  font-weight: 300;
+  font-size: 20px;
+  padding: 4px;
+  color: grey;
+`;
 const Button = styled.button`
   width: 100%;
   align-self: center;
-  margin-top: 12px;
   padding: 14px 0;
   font-size: 16px;
   color: white;
@@ -159,6 +175,7 @@ const ForgotPassword = styled.div`
   font-size: 16px;
   text-align: left;
   margin-top: 8px;
+  margin-bottom: 12px;
 `;
 const Prompt = styled.div`
   font-size: 18px;

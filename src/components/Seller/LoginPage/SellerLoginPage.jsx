@@ -1,16 +1,18 @@
 import React from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { sellerLogin } from "../../../services/seller-api";
 import { useContext } from "react";
-import { ProductContext } from "../../../context/product-context";
-
+import { UserContext } from "../../../context/user-context";
+import styled from "styled-components";
+import { colors } from "../../../constants/colors";
 const SellerLogin = () => {
   const [isValid, setIsValid] = useState({ valid: true, message: "" });
-  const { products } = useContext(ProductContext);
-
-  console.log(products);
-  const loginSellerHandler = async (event) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const userCtx = useContext(UserContext);
+  const loginUserHandler = async (event) => {
     event.preventDefault();
 
     const user = {
@@ -18,20 +20,18 @@ const SellerLogin = () => {
       password: event.target.password.value,
     };
     if (isUserAuthenticated(user)) {
+      setIsLoading(true);
       const responseData = await sellerLogin(user);
-      console.log(responseData);
+      setIsLoading(false);
       if (responseData === undefined) {
         setIsValid({
           valid: false,
-          message: (
-            <div className="login-error-container">
-              <div>Account does not exist! </div>
-            </div>
-          ),
+          message: <Error>Account does not exist! </Error>,
         });
+      } else {
+        userCtx.setIsAuth(true);
+        navigate("/");
       }
-    } else {
-      return;
     }
   };
 
@@ -48,36 +48,135 @@ const SellerLogin = () => {
     }
     setIsValid({
       valid: false,
-      message: (
-        <div className="login-error-container">
-          <div>Please enter valid credentials. </div>
-          <div>Password must be atleast 8 characters long.</div>
-        </div>
-      ),
+      message: <Error>Please enter valid credentials. </Error>,
     });
     return false;
   };
   return (
     <>
-      {localStorage.getItem("buzzaar") ? <Navigate to="/" /> : ""}
-      <form onSubmit={loginSellerHandler}>
-        <div className="seller-container">
-          <h1 className="seller-login-title">Seller Login</h1>
-          <label className="seller-label">Email</label>
-          <input className="seller-input" name="email" />
-          <label className="seller-label">Password</label>
-          <input className="seller-input" name="password" type="password" />
-          {!isValid.valid && isValid.message}
-          <button type="submit" className="seller-login-button">
-            Login
-          </button>
-          <Link className="forgot-password" to="/user/password/forget">
-            Forgot Password?
-          </Link>
-        </div>
-      </form>
+      {localStorage.getItem("buzzaar") ? (
+        <Navigate to="/" />
+      ) : (
+        <>
+          <CloseIcon>
+            <Link style={{ color: "black" }} to="/">
+              {/* <Close style={{ fontSize: 28 }} /> */}X
+            </Link>
+          </CloseIcon>
+          <form onSubmit={loginUserHandler}>
+            <Container>
+              <Title>Business Account</Title>
+              <Prompt>
+                New to this site?<Link to="/seller/register"> Sign Up</Link>
+              </Prompt>
+              <Label>Email</Label>
+              <Input name="email" />
+              <Label>Password</Label>
+              <Input name="password" type="password" />
+              {!isValid.valid && isValid.message}
+              <Link to="/user/password/forget">
+                <ForgotPassword>Forgot Password?</ForgotPassword>
+              </Link>
+              <Button
+                type="submit"
+                style={isLoading ? { backgroundColor: "grey" } : {}}
+                disabled={isLoading ? true : false}
+              >
+                {isLoading ? "Logging in..." : "Log In"}
+              </Button>
+            </Container>
+          </form>
+        </>
+      )}
     </>
   );
 };
 
 export default SellerLogin;
+
+const Container = styled.div`
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 12px;
+  @media (min-width: 1400px) {
+    margin: 100px auto;
+  }
+`;
+const CloseIcon = styled.div`
+  display: flex;
+  margin-top: 65px;
+  justify-content: flex-end;
+  width: 95%;
+  color: black;
+
+  @media (min-width: 1400px) {
+    width: 97%;
+  }
+`;
+const Title = styled.div`
+  text-align: center;
+  font-size: 40px;
+  color: black;
+`;
+
+const Label = styled.label`
+  font-size: 16px;
+  color: grey;
+`;
+const Input = styled.input`
+  background-color: inherit;
+  border: none;
+  border-bottom: 1px solid grey;
+  width: 310px;
+  font-size: 18px;
+  padding: 2px 1px;
+  margin-bottom: 30px;
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid ${colors.primary600};
+  }
+  &:hover {
+    border-bottom: 1px solid black;
+  }
+`;
+const Text = styled.div`
+  font-weight: 300;
+  font-size: 20px;
+  padding: 4px;
+  color: grey;
+`;
+const Button = styled.button`
+  width: 100%;
+  align-self: center;
+  padding: 14px 0;
+  font-size: 16px;
+  color: white;
+  border: none;
+  background-color: ${colors.primary600};
+  cursor: pointer;
+`;
+
+const ForgotPassword = styled.div`
+  font-size: 16px;
+  text-align: left;
+  margin-top: 8px;
+  margin-bottom: 12px;
+`;
+const Prompt = styled.div`
+  font-size: 18px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 12px;
+  > * {
+    text-decoration: none;
+    color: ${colors.primary600};
+  }
+`;
+const Error = styled.div`
+  font-size: 12px;
+  color: red;
+  padding: 1px;
+`;

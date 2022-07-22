@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { colors } from "../../constants/colors";
 import { ReactComponent as BrandIcon } from "../../assets/brand/buzzaar.svg";
+
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState();
 
@@ -16,6 +17,7 @@ const Navbar = () => {
       setIsLoggedIn(false);
     }
   }, []);
+
   return (
     <Bar>
       <Container>
@@ -27,7 +29,9 @@ const Navbar = () => {
         <MiddleContainer>
           <Tab>Marketplace</Tab>
           <Tab>Collection</Tab>
-          <Tab>Sellers</Tab>
+          <Tab>
+            <Link to="/seller/me">Seller</Link>
+          </Tab>
         </MiddleContainer>
         <RightContainer>
           <SearchBar>
@@ -135,4 +139,8 @@ const SearchInput = styled.input`
 `;
 const Tab = styled.div`
   cursor: pointer;
+  * {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
