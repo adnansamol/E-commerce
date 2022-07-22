@@ -1,9 +1,12 @@
 import axios from "axios";
 import { base_url } from "./backend";
 
-export const getAllProducts = async () => {
+export const getAllProducts = async (constraints) => {
   try {
-    const response = await axios.get(`${base_url}/product/allProducts`);
+    const response = await axios.get(
+      `${base_url}/product/allProducts?limit=40&page=1&new=true`,
+      constraints
+    );
     return response.data.results;
   } catch (error) {
     console.log("something went wrong in get all product api: ", error);

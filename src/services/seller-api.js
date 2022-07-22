@@ -38,3 +38,14 @@ export const sellerProfile = async () => {
     console.log("something went wrong in seller profile api: ", error);
   }
 };
+export const sellerLogout = async () => {
+  try {
+    const response = await axios.get(`${base_url}/seller/logout`, {
+      withCredentials: true,
+    });
+    localStorage.removeItem("buzzaar");
+    return response;
+  } catch (error) {
+    console.log("something went wrong in seller logout api: ", error);
+  }
+};

@@ -3,10 +3,12 @@ import styled from "styled-components";
 const Product = ({ name, price, imageUrl }) => {
   return (
     <Container>
-      <img src={imageUrl} alt="preview" />
-      <Name className="product-title">{name}</Name>
-      <Price className="product-price">${price}</Price>
-      <Text>Free Delivery</Text>
+      <Preview src={imageUrl} alt="preview" />
+      <div>
+        <Name className="product-title">{name}</Name>
+        <Price className="product-price">${price}</Price>
+        <Text>Free Delivery</Text>
+      </div>
     </Container>
   );
 };
@@ -15,6 +17,7 @@ export default Product;
 
 const Container = styled.div`
   width: 200px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   padding: 8px;
@@ -22,6 +25,10 @@ const Container = styled.div`
   border: 1px solid #d3d3d3;
   border-radius: 4px;
   background-color: white;
+`;
+const Preview = styled.img`
+  width: 200px;
+  height: 200px;
 `;
 const Name = styled.div`
   color: rgb(130, 130, 130);

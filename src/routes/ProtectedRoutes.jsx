@@ -9,7 +9,7 @@ const ProtectedRoute = () => {
   return userCtx.isAuth || localStorage.getItem("buzzaar") ? (
     <Outlet />
   ) : (
-    <Navigate to="/" />
+    <Navigate to="/user/login" />
   );
 };
 

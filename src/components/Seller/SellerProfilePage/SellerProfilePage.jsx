@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../../../constants/colors";
 import { UserContext } from "../../../context/user-context";
-import { sellerProfile } from "../../../services/seller-api";
+import { sellerProfile, sellerLogout } from "../../../services/seller-api";
 import Footer from "../../Footer/Footer";
 import Navbar from "../../Navbar/Navbar";
 import Loading from "../../UI/Loading";
@@ -25,7 +25,7 @@ const SellerProfilePage = () => {
   }, []);
   console.log(sellerInfo);
   const logoutUser = async () => {
-    // const response = await userLogout();
+    const response = await sellerLogout();
     userCtx.setIsAuth(false);
   };
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { getAllCategories } from "../../services/category-api";
 import { createProduct } from "../../services/product-api";
 import { sellerProfile } from "../../services/seller-api";
 
@@ -9,26 +10,47 @@ const Button = styled.button``;
 
 const CreateProductPage = () => {
   const [files, setFiles] = useState([]);
-  const [file, setFile] = useState({});
+  const [category, setCategory] = useState();
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const data = await getAllCategories();
+      setCategory(data.categories);
+    };
+    fetchCategories();
+    console.log(category);
+  }, []);
+  console.log(category);
   const imageUploadHandler = (event) => {
-    [...event.target.files].forEach((file) =>
-      setFiles((curr) => [...curr, file])
-    );
+    setFiles([...event.target.files]);
   };
   console.log(files);
   const createProductHandler = async (event) => {
     event.preventDefault();
-    const product = {
-      name: event.target.name.value,
-      description: event.target.description.value,
-      price: +event.target.price.value,
-      category: "623f2d1173cbf70cf448f0f5",
-      colour: "red,blue",
-      size: "S,M,L",
-      stock: event.target.stock.value,
-      images: files,
-    };
-    const response = await createProduct(product);
+    const formData = new FormData();
+    formData.append("name", event.target.name.value);
+    formData.append("description", event.target.description.value);
+    formData.append("price", +event.target.price.value);
+    formData.append("category", category[0]._id);
+    formData.append("colour", "red,blue");
+    formData.append("size", "S,M,L");
+    formData.append("customizable", false);
+    formData.append("stock", event.target.stock.value);
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append("images", files[i]);
+    }
+    // const product = {
+    //   name: event.target.name.value,
+    //   description: event.target.description.value,
+    //   price: +event.target.price.value,
+    //   category: "623f2d1173cbf70cf448f0f5",
+    //   colour: "red,blue",
+    //   size: "S,M,L",
+    //   stock: event.target.stock.value,
+    //   images: files,
+    // };
+    const response = await createProduct(formData);
     console.log(response);
   };
 

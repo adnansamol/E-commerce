@@ -23,15 +23,16 @@ function App() {
           <Route exact path="/seller/register" element={<SellerSignupPage />} />
           <Route exact path="/product/:id" element={<ProductDetailPage />} />
           <Route element={<ProtectedRoutes />}>
+            <Route exact path="/seller/me" element={<SellerProfilePage />} />
             <Route exact path="/user/me" element={<UserProfilePage />} />
             <Route
               exact
               path="/user/me/update"
               element={<UpdateUserProfilePage />}
             />
+
             <Route exact path="/user/me/orders" element={<OrdersPage />} />
           </Route>
-          <Route exact path="/seller/me" element={<SellerProfilePage />} />
           <Route exact path="/product/create" element={<CreateProductPage />} />
         </Routes>
       </BrowserRouter>
