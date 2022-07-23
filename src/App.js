@@ -11,7 +11,17 @@ import SellerProfilePage from "./components/Seller/SellerProfilePage/SellerProfi
 import CreateProductPage from "./components/Product/CreateProductPage";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
 import OrdersPage from "./components/User/Orders/OrdersPage";
+import { useContext } from "react";
+import { UtilContext } from "./context/util-context";
 function App() {
+  const { menu } = useContext(UtilContext);
+  const body = document.getElementsByTagName("body")[0];
+  if (menu) {
+    body.style.overflow = "hidden";
+  } else {
+    body.style.overflow = "scroll";
+  }
+
   return (
     <>
       <BrowserRouter>

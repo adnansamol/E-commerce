@@ -4,6 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import LinkWrapper from "../UI/LinkWrapper";
 import VerticalBar from "../UI/VerticalBar";
+import { dimensions } from "../../constants/responsive";
 
 const Products = ({ products, title }) => {
   const [priceFilter, setPriceFilter] = useState("");
@@ -81,6 +82,11 @@ const Title = styled.div`
   font-weight: 600;
   text-align: left;
   padding: 40px;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    font-size: 20px;
+    padding: 15px;
+  }
 `;
 
 const Select = styled.select`
@@ -88,6 +94,11 @@ const Select = styled.select`
   padding: 10px;
   font-size: 18px;
   outline: none;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    font-size: 12px;
+    padding: 5px;
+  }
 `;
 const Option = styled.option``;
 const Price = styled.p`
@@ -99,4 +110,8 @@ const SortContainer = styled.div`
   margin-left: auto;
   width: fit-content;
   padding: 24px;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    padding: 12px;
+  }
 `;

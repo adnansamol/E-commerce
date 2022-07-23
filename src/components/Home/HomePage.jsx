@@ -14,12 +14,7 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const retrieveProducts = async () => {
-      const productsData = await getAllProducts({
-        limit: 8,
-        category: "62b969cac46c93f1498e8087",
-        new: true,
-        page: 1,
-      });
+      const productsData = await getAllProducts();
       setIsLoading(false);
       setProducts(productsData);
       console.log(productsData);

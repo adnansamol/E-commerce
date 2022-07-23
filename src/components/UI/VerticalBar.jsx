@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { colors } from "../../constants/colors";
+import { dimensions } from "../../constants/responsive";
 
 const VerticalBar = ({ children, title }) => {
   return (
@@ -19,10 +20,18 @@ const Container = styled.div`
   padding-left: 12px;
   width: 250px;
   background-color: white;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    width: 100px;
+  }
 `;
 const Title = styled.p`
   font-size: 24px;
 
   font-weight: 600;
   color: ${colors.primary600};
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    font-size: 18px;
+  }
 `;

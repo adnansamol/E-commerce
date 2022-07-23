@@ -17,7 +17,7 @@ const LoadingKeyframes = keyframes`
 `;
 const LoadingContainer = styled.div`
   display: flex;
-  margin: 200px;
+  margin: 200px 0;
   align-items: center;
   justify-content: center;
 `;

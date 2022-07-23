@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
 import { colors } from "../../constants/colors";
+import { dimensions } from "../../constants/responsive";
 import { getProduct } from "../../services/product-api";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
@@ -85,6 +86,10 @@ const Component = styled.div`
 const Container = styled.div`
   display: flex;
   margin: 48px 0;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    flex-direction: column;
+  }
 `;
 const Image = styled.img`
   width: 320px;
@@ -100,12 +105,27 @@ const LeftContainer = styled.div`
   border-right: none;
   border-radius: 8px 0px 0px 8px;
   background-color: #f0f0f0;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    border-radius: 8px;
+    border: 1px solid #d3d3d3;
+    padding: 10px 0;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
 `;
 const RightContainer = styled.div`
   border: 1px solid #d3d3d3;
   border-radius: 0px 8px 8px 0px;
   width: 450px;
   padding: 20px;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    width: 320px;
+    margin: 0 auto;
+    border-radius: 8px;
+    border: 1px solid #d3d3d3;
+  }
 `;
 const Name = styled.p`
   font-weight: 500;
@@ -154,16 +174,30 @@ const BuyNow = styled.button`
 const BottomSection = styled.div`
   border: 1px solid #d3d3d3;
   border-radius: 8px;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    width: 360px;
+    margin: 0 auto;
+  }
 `;
 const DescriptionContainer = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 100px;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    flex-direction: column;
+    padding: 20px;
+  }
 `;
 const Title = styled.p`
   font-size: 24px;
   font-weight: 500;
   margin-left: 100px;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    margin: 20px;
+  }
 `;
 const Text = styled.p`
   font-size: 20px;

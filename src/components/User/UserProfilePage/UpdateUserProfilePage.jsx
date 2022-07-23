@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import Footer from "../../Footer/Footer";
 import Loading from "../../UI/Loading";
 import ProfileUI from "../../UI/ProfileUI";
+import { dimensions } from "../../../constants/responsive";
 const UpdateUserProfilePage = () => {
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -37,13 +38,7 @@ const UpdateUserProfilePage = () => {
 
   const profileComponent = (
     <ProfileDetail>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
+      <ButtonContainer>
         <h2 style={{ flex: 1 }}>My Account</h2>
 
         <EditProfile>
@@ -52,7 +47,7 @@ const UpdateUserProfilePage = () => {
         <EditProfile onClick={updateUserHandler} style={{ marginLeft: 15 }}>
           Update Info
         </EditProfile>
-      </div>
+      </ButtonContainer>
       <Label style={{ marginBottom: 30, fontWeight: 500, fontSize: 16 }}>
         View and edit your personal details below.
       </Label>
@@ -62,7 +57,7 @@ const UpdateUserProfilePage = () => {
         Update and Edit the information you share with the community
       </Label>
 
-      <div style={{ display: " flex" }}>
+      <InputContainer>
         <div style={{ marginRight: 60 }}>
           <Label>First Name</Label>
           <Input id="fname" defaultValue={userInfo.first_name} />
@@ -71,8 +66,8 @@ const UpdateUserProfilePage = () => {
           <Label>Last Name</Label>
           <Input id="lname" defaultValue={userInfo.last_name} />
         </div>
-      </div>
-      <div style={{ display: " flex" }}>
+      </InputContainer>
+      <InputContainer>
         <div style={{ marginRight: 60 }}>
           <Label>Email</Label>
           <Input id="email" defaultValue={userInfo.email} />
@@ -81,7 +76,7 @@ const UpdateUserProfilePage = () => {
           <Label>Phone Number</Label>
           <Input id="phone" defaultValue={userInfo.phone_number} />
         </div>
-      </div>
+      </InputContainer>
     </ProfileDetail>
   );
   return (
@@ -108,6 +103,15 @@ const ProfileDetail = styled.div`
   padding-top: 12px;
   align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.2);
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    padding: 14px;
+  }
+`;
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justifycontent: space-between;
 `;
 const EditProfile = styled.div`
   display: flex;
@@ -130,6 +134,12 @@ const Label = styled.div`
   font-weight: 500;
   margin-bottom: 12px;
 `;
+const InputContainer = styled.div`
+  display: flex;
+  @media (max-width: ${dimensions.mobileWidth}) {
+    flex-direction: column;
+  }
+`;
 const Input = styled.input`
   border: 1px solid rgba(0, 0, 0, 0.5);
   width: 170px;
@@ -142,5 +152,9 @@ const Input = styled.input`
 
   @media (min-width: 1920px) {
     width: 280px;
+  }
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    width: 200px;
   }
 `;

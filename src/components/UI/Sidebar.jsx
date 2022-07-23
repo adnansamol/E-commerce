@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../../constants/colors";
+import { dimensions } from "../../constants/responsive";
 const Sidebar = ({ userInfo }) => {
   const [currentTab, setCurrentTab] = useState("Profile");
 
@@ -65,6 +66,10 @@ export default Sidebar;
 
 const Bar = styled.div`
   margin-right: 12px;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    display: none;
+  }
 `;
 
 const Sidetab = styled.div`

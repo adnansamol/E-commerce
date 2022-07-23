@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { ReactComponent as BrandLogo } from "../../assets/brand/buzzaar.svg";
+import { dimensions } from "../../constants/responsive";
 const Footer = () => {
   return (
     <FooterContainer>
       <LeftContainer>
-        <div>
-          <BrandLogo style={{ width: 150 }} />
+        <Logo>
+          <BrandLogo />
           <div>MARKETPLACE</div>
-        </div>
+        </Logo>
       </LeftContainer>
 
       <RightContainer>
@@ -47,9 +48,18 @@ const FooterContainer = styled.div`
   height: 240px;
   align-items: center;
   box-shadow: 1px 0px 4px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    flex-direction: column;
+    height: 300px;
+  }
 `;
 const LeftContainer = styled.div`
   margin: 120px;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    margin: 50px;
+  }
 `;
 const RightContainer = styled.div`
   display: flex;
@@ -57,13 +67,32 @@ const RightContainer = styled.div`
   @media (min-width: 1920px) {
     margin-left: 600px;
   }
-`;
 
+  @media (max-width: ${dimensions.mobileWidth}) {
+    margin-left: 20px;
+  }
+`;
+const Logo = styled.div`
+  width: 150px;
+`;
 const Label = styled.div`
   font-size: 18px;
   font-weight: 600;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    font-size: 14px;
+  }
 `;
-const Text = styled.p``;
+const Text = styled.p`
+  @media (max-width: ${dimensions.mobileWidth}) {
+    font-size: 12px;
+  }
+`;
 const List = styled.div`
   margin-right: 100px;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    margin-right: 20px;
+    width: fit-content;
+  }
 `;

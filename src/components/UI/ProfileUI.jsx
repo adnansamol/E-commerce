@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
 import { colors } from "../../constants/colors";
+import { dimensions } from "../../constants/responsive";
 const ProfileUI = ({ renderComponent, userInfo }) => {
   return (
     <Container>
@@ -33,6 +34,10 @@ const Container = styled.div`
   @media (min-width: 1920px){
     width: 55%;
   }
+
+  @media (max-width: ${dimensions.mobileWidth}){
+    width: 100%;
+  }
 `;
 const BottomSection = styled.div`
   display: flex;
@@ -46,6 +51,11 @@ const ProfileContainer = styled.div`
   padding-bottom: 30px;
   background-color: ${colors.primary500};
   height: 220px;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    padding-left: 40px;
+    height: 180px;
+  }
 `;
 const ProfilePicture = styled.div`
   display: flex;
