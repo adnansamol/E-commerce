@@ -109,18 +109,6 @@ const MenuBar = ({ ...components }) => {
               </MenuItem>
             </Link>
             <hr />
-            <Link to="/seller/me">
-              <MenuItem>
-                <Label
-                  style={
-                    currentTab === "Seller" ? { color: colors.primary600 } : {}
-                  }
-                >
-                  Seller
-                </Label>
-              </MenuItem>
-            </Link>
-            <hr />
             <Link to="/">
               <MenuItem>
                 <Label
