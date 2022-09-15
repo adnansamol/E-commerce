@@ -48,7 +48,6 @@ const FooterContainer = styled.div`
   height: 240px;
   align-items: center;
   box-shadow: 1px 0px 4px rgba(0, 0, 0, 0.3);
-
   @media (max-width: ${dimensions.mobileWidth}) {
     flex-direction: column;
     height: 300px;

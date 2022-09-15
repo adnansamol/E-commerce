@@ -5,11 +5,11 @@ const Product = ({ name, price, imageUrl }) => {
   return (
     <Container>
       <Preview src={imageUrl} alt="preview" />
-      <div>
+      <BottomContainer>
         <Name className="product-title">{name}</Name>
         <Price className="product-price">${price}</Price>
         <Text>Free Delivery</Text>
-      </div>
+      </BottomContainer>
     </Container>
   );
 };
@@ -28,8 +28,8 @@ const Container = styled.div`
   background-color: white;
 
   @media (max-width: ${dimensions.mobileWidth}) {
-    width: 100px;
-    height: 150px;
+    width: 170px;
+    height: 230px;
   }
 `;
 const Preview = styled.img`
@@ -37,14 +37,18 @@ const Preview = styled.img`
   height: 200px;
 
   @media (max-width: ${dimensions.mobileWidth}) {
-    width: 100px;
-    height: 100px;
+    width: 170px;
+    height: 170px;
   }
 `;
+const BottomContainer = styled.div`
+  margin-top: 8px;
+`;
 const Name = styled.div`
-  color: rgb(130, 130, 130);
+  color: rgb(110, 110, 110);
+  font-weight: 500;
   font-size: 18px;
-  padding: 6px 8px;
+  padding: 2px 8px;
   white-space: no-wrap;
   overflow: hidden;
   text-overflow: ellipses;

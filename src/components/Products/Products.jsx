@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 import LinkWrapper from "../UI/LinkWrapper";
-import VerticalBar from "../UI/VerticalBar";
+import FilterBar from "../UI/FilterBar";
 import { dimensions } from "../../constants/responsive";
-
 const Products = ({ products, title }) => {
   const [priceFilter, setPriceFilter] = useState("");
 
@@ -40,15 +39,14 @@ const Products = ({ products, title }) => {
         </Select>
       </SortContainer>
       <Container>
-        <VerticalBar title="Filters">
+        <FilterBar title="Filters">
           <Price>Price</Price>
-        </VerticalBar>
+        </FilterBar>
         <ProductContainer>
           {products.map((product) => (
-            <LinkWrapper>
+            <LinkWrapper key={product._id}>
               <Link to={`/product/${product._id}`} key={product._id}>
                 <Product
-                  key={product._id}
                   name={product.name}
                   price={product.price}
                   imageUrl={product.images[0].url}
@@ -66,15 +64,20 @@ export default Products;
 
 const Container = styled.div`
   display: flex;
+
+  @media (max-width: ${dimensions.mobileWidth}) {
+    flex-direction: column;
+  }
 `;
 const ProductContainer = styled.div`
   display: grid;
   width: fit-content;
   gap: 20px;
   grid-template-columns: auto auto auto auto;
-
+  margin: auto;
   @media (max-width: 768px) {
     grid-template-columns: auto auto;
+    gap: 8px;
   }
 `;
 const Title = styled.div`

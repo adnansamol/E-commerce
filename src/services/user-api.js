@@ -32,9 +32,21 @@ export const userProfile = async () => {
         buzzaar,
       },
     });
-    return response.data;
+    return response.data.user;
   } catch (error) {
     console.log("something went wrong in user profile api: ", error);
+  }
+  try {
+    const buzzaar = localStorage.getItem("buzzaar");
+    const response = await axios.get(`${base_url}/seller/me`, {
+      withCredentials: true,
+      headers: {
+        buzzaar,
+      },
+    });
+    return response.data.seller;
+  } catch (error) {
+    console.log("something went wrong in seller profile api: ", error);
   }
 };
 
@@ -54,6 +66,22 @@ export const userProfileUpdate = async (updatedUserData) => {
     const buzzaar = localStorage.getItem("buzzaar");
     const response = await axios.put(
       `${base_url}/user/me/update`,
+      updatedUserData,
+      {
+        withCredentials: true,
+        headers: {
+          buzzaar,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.log("something went wrong in user update api: ", error);
+  }
+  try {
+    const buzzaar = localStorage.getItem("buzzaar");
+    const response = await axios.put(
+      `${base_url}/seller/me/update`,
       updatedUserData,
       {
         withCredentials: true,

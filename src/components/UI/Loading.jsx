@@ -22,6 +22,7 @@ const LoadingContainer = styled.div`
   justify-content: center;
 `;
 const LoadingWheel = styled.div`
+  position: fixed;
   width: 60px;
   height: 60px;
   border: 8px solid white;

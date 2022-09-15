@@ -1,10 +1,13 @@
 import React from "react";
+import { useContext } from "react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import styled from "styled-components";
 import { colors } from "../../constants/colors";
 import { dimensions } from "../../constants/responsive";
-import { getProduct } from "../../services/product-api";
+import { UserContext } from "../../context/user-context";
+import { deleteProduct, getProduct } from "../../services/product-api";
+import { getSellerName, sellerProfile } from "../../services/seller-api";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import Loading from "../UI/Loading";
@@ -12,15 +15,35 @@ const ProductDetailPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [sellerID, setSellerID] = useState("");
+  const [sellerName, setSellerName] = useState("Unknown");
+  const navigate = useNavigate();
+
+  const { user } = useContext(UserContext);
   useEffect(() => {
     const retrieveProduct = async () => {
-      const product = await getProduct(id);
+      const data = await getProduct(id);
+      setSellerID(user);
+      const seller = await sellerProfile();
+      console.log(seller);
+      if (seller != undefined) {
+        setSellerID(seller._id);
+      }
+
+      console.log(user);
+      const { sellerDetails } = await getSellerName(data.product.seller);
+      setProduct(data.product);
+      setSellerName(sellerDetails.first_name + " " + sellerDetails.last_name);
       setIsLoading(false);
-      setProduct(product.product);
+      console.log(data);
     };
     retrieveProduct();
   }, []);
-  console.log(product.images);
+
+  const deleteProductHandler = async () => {
+    await deleteProduct(product._id);
+    navigate("/");
+  };
   return (
     <>
       <Navbar />
@@ -45,14 +68,24 @@ const ProductDetailPage = () => {
                 </p>
                 <SizeContainer>
                   {product.size.map((item) => (
-                    <Size>{item}</Size>
+                    <Size key={item}>{item}</Size>
                   ))}
                 </SizeContainer>
                 <Stock>
                   Stock: <b>{product.stock}</b>
                 </Stock>
-                <p className="general-text">Seller: {product.seller}</p>
-                <BuyNow>Buy Now</BuyNow>
+                <p className="general-text">Seller: {sellerName}</p>
+
+                {sellerID === product.seller ? (
+                  <>
+                    <EditProduct onClick={() => navigate("/product/update")}>
+                      Edit Product
+                    </EditProduct>
+                    <Delete onClick={deleteProductHandler}>Delete</Delete>
+                  </>
+                ) : (
+                  <BuyNow>Buy Now </BuyNow>
+                )}
               </RightContainer>
             </Container>
             <BottomSection>
@@ -91,6 +124,7 @@ const Container = styled.div`
     flex-direction: column;
   }
 `;
+
 const Image = styled.img`
   width: 320px;
   height: 320px;
@@ -119,7 +153,7 @@ const RightContainer = styled.div`
   border-radius: 0px 8px 8px 0px;
   width: 450px;
   padding: 20px;
-
+  background-color: white;
   @media (max-width: ${dimensions.mobileWidth}) {
     width: 320px;
     margin: 0 auto;
@@ -171,10 +205,28 @@ const BuyNow = styled.button`
   font-size: 18px;
   cursor: pointer;
 `;
+const Delete = styled.button`
+  border: none;
+  border-radius: 4px;
+  background-color: ${colors.error500};
+  padding: 10px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+`;
+const EditProduct = styled.button`
+  border: 1px solid ${colors.primary600};
+  background-color: white;
+  border-radius: 4px;
+  padding: 8px;
+  color: ${colors.primary600};
+  font-size: 18px;
+  cursor: pointer;
+`;
 const BottomSection = styled.div`
   border: 1px solid #d3d3d3;
   border-radius: 8px;
-
+  background-color: white;
   @media (max-width: ${dimensions.mobileWidth}) {
     width: 360px;
     margin: 0 auto;

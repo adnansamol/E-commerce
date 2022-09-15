@@ -6,7 +6,7 @@ import { UserContext } from "../context/user-context";
 const ProtectedRoute = () => {
   const userCtx = useContext(UserContext);
 
-  return userCtx.isAuth || localStorage.getItem("buzzaar") ? (
+  return localStorage.getItem("buzzaar") ? (
     <Outlet />
   ) : (
     <Navigate to="/user/login" />

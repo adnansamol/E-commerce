@@ -17,7 +17,6 @@ const HomePage = () => {
       const productsData = await getAllProducts();
       setIsLoading(false);
       setProducts(productsData);
-      console.log(productsData);
     };
     retrieveProducts();
   }, []);

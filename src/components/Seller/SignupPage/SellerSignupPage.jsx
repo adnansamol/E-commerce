@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../../../constants/colors";
 import { useState } from "react";
+import { FaPlus } from "react-icons/fa";
 const SellerSignupPage = () => {
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState();
@@ -42,52 +43,29 @@ const SellerSignupPage = () => {
     <>
       <CloseIcon>
         <Link style={{ color: "black" }} to="/">
-          {/* <Close style={{ fontSize: 28 }} /> */}X
+          <FaPlus style={{ transform: "rotate(45deg)", fontSize: 30 }} />
         </Link>
       </CloseIcon>
       <form onSubmit={registerFormHandler}>
-        <Container className="signup-container">
-          <Title className="signup-title">Become a Seller</Title>
+        <Container>
+          <Title>Become a Seller</Title>
           <Prompt>
             Already a seller?<Link to="/user/login"> Log In</Link>
           </Prompt>
-          <Label className="signup-label">First Name</Label>
-          <Input
-            className="signup-input"
-            type="text"
-            minLength={4}
-            required
-            name="fname"
-          />
+          <Label>First Name</Label>
+          <Input type="text" minLength={4} required name="fname" />
           <Label className="signup-label">Last Name</Label>
-          <Input
-            className="signup-input"
-            type="text"
-            minLength={4}
-            required
-            name="lname"
-          />
-          <Label className="signup-label">Email</Label>
-          <Input className="signup-input" type="email" required name="email" />
-          <Label className="signup-label">Password</Label>
-          <Input
-            className="signup-input"
-            type="password"
-            required
-            name="password"
-          />
-          <Label className="signup-label">Confirm Password</Label>
-          <Input
-            className="signup-input"
-            type="password"
-            required
-            name="confirmPassword"
-          />
-          <Label className="signup-label">Phone Number</Label>
-          <Input className="signup-input" type="text" required name="phone" />
+          <Input type="text" minLength={4} required name="lname" />
+          <Label>Email</Label>
+          <Input type="email" required name="email" />
+          <Label>Password</Label>
+          <Input type="password" required name="password" />
+          <Label>Confirm Password</Label>
+          <Input type="password" required name="confirmPassword" />
+          <Label>Phone Number</Label>
+          <Input type="text" required name="phone" />
           <Button
             type="submit"
-            className="signup-button"
             style={isProcessing && { backgroundColor: "grey" }}
           >
             {isProcessing ? "Creating Account" : "Register"}

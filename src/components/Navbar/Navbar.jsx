@@ -15,6 +15,7 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState();
   // const [menu, setMenu] = useState(false);
   const { menu, toggleSetMenu } = useContext(UtilContext);
+
   useEffect(() => {
     if (localStorage.getItem("buzzaar")) {
       setIsLoggedIn(true);
@@ -23,7 +24,6 @@ const Navbar = () => {
     }
   }, []);
 
-  console.log(menu);
   return (
     <>
       <Bar>
@@ -76,6 +76,8 @@ const Navbar = () => {
 
 export default Navbar;
 const Bar = styled.div`
+  position: fixed;
+  top: 0;
   display: flex;
   background-color: white;
   box-shadow: 1px 0px 4px rgba(0, 0, 0, 0.3);

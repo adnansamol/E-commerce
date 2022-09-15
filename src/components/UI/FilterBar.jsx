@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { colors } from "../../constants/colors";
 import { dimensions } from "../../constants/responsive";
 
-const VerticalBar = ({ children, title }) => {
+const FilterBar = ({ children, title }) => {
   return (
     <Container>
       <Title>{title}</Title>
@@ -12,7 +12,7 @@ const VerticalBar = ({ children, title }) => {
   );
 };
 
-export default VerticalBar;
+export default FilterBar;
 
 const Container = styled.div`
   display: flex;
@@ -22,7 +22,10 @@ const Container = styled.div`
   background-color: white;
 
   @media (max-width: ${dimensions.mobileWidth}) {
-    width: 100px;
+    width: 100%;
+    padding: 0;
+    justify-content: space-between;
+    flex-direction: row;
   }
 `;
 const Title = styled.p`

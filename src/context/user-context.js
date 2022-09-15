@@ -4,18 +4,20 @@ export const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState();
-
+  const [user, setUser] = useState("");
   useEffect(() => {
-    if (localStorage.getItem("buzzaar") !== undefined) {
+    if (localStorage.getItem("buzzaar")) {
       setIsAuth(true);
       return;
     }
     setIsAuth(false);
-    console.log(isAuth);
   }, []);
 
+  const saveUserProfile = (data) => {
+    setUser(data);
+  };
   return (
-    <UserContext.Provider value={{ isAuth, setIsAuth }}>
+    <UserContext.Provider value={{ isAuth, setIsAuth, user, saveUserProfile }}>
       {children}
     </UserContext.Provider>
   );

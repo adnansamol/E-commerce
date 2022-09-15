@@ -13,40 +13,58 @@ import ProtectedRoutes from "./routes/ProtectedRoutes";
 import OrdersPage from "./components/User/Orders/OrdersPage";
 import { useContext } from "react";
 import { UtilContext } from "./context/util-context";
+import UpdateProductPage from "./components/Product/UpdateProductPage";
+import UserContextProvider from "./context/user-context";
 function App() {
-  const { menu } = useContext(UtilContext);
-  const body = document.getElementsByTagName("body")[0];
-  if (menu) {
-    body.style.overflow = "hidden";
-  } else {
-    body.style.overflow = "scroll";
-  }
+  // const { menu } = useContext(UtilContext);
+
+  // const body = document.getElementsByTagName("body")[0];
+  // if (menu) {
+  //   body.style.overflow = "hidden";
+  // } else {
+  //   body.style.overflow = "scroll";
+  // }
 
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/" element={<HomePage />} />
-          <Route exact path="/user/login" element={<UserLoginPage />} />
-          <Route exact path="/seller/login" element={<SellerLoginPage />} />
-          <Route exact path="/user/register" element={<UserSignupPage />} />
-          <Route exact path="/seller/register" element={<SellerSignupPage />} />
-          <Route exact path="/product/:id" element={<ProductDetailPage />} />
-          <Route element={<ProtectedRoutes />}>
-            <Route exact path="/seller/me" element={<SellerProfilePage />} />
-            <Route exact path="/user/me" element={<UserProfilePage />} />
+    <UserContextProvider>
+      <div style={{ marginTop: 120 }}>
+        <BrowserRouter>
+          <Routes>
+            <Route exact path="/" element={<HomePage />} />
+            <Route exact path="/user/login" element={<UserLoginPage />} />
+            <Route exact path="/seller/login" element={<SellerLoginPage />} />
+            <Route exact path="/user/register" element={<UserSignupPage />} />
             <Route
               exact
-              path="/user/me/update"
-              element={<UpdateUserProfilePage />}
+              path="/seller/register"
+              element={<SellerSignupPage />}
             />
+            <Route exact path="/product/:id" element={<ProductDetailPage />} />
+            <Route element={<ProtectedRoutes />}>
+              <Route exact path="/seller/me" element={<SellerProfilePage />} />
+              <Route exact path="/user/me" element={<UserProfilePage />} />
+              <Route
+                exact
+                path="/user/me/update"
+                element={<UpdateUserProfilePage />}
+              />
 
-            <Route exact path="/user/me/orders" element={<OrdersPage />} />
-          </Route>
-          <Route exact path="/product/create" element={<CreateProductPage />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+              <Route exact path="/user/me/orders" element={<OrdersPage />} />
+              <Route
+                exact
+                path="/product/create"
+                element={<CreateProductPage />}
+              />
+              <Route
+                exact
+                path="/product/update"
+                element={<UpdateProductPage />}
+              />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </UserContextProvider>
   );
 }
 

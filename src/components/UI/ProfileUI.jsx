@@ -5,20 +5,22 @@ import { colors } from "../../constants/colors";
 import { dimensions } from "../../constants/responsive";
 const ProfileUI = ({ renderComponent, userInfo }) => {
   return (
-    <Container>
-      <ProfileContainer>
-        <ProfilePicture>
-          <div>{userInfo.first_name.charAt(0).toUpperCase()}</div>
-        </ProfilePicture>
-        <Username>
-          {userInfo.first_name} {userInfo.last_name}
-        </Username>
-      </ProfileContainer>
-      <BottomSection>
-        <Sidebar userInfo={userInfo} />
-        {renderComponent}
-      </BottomSection>
-    </Container>
+    <>
+      <Container>
+        <ProfileContainer>
+          <ProfilePicture>
+            <div>{userInfo.first_name.charAt(0).toUpperCase()}</div>
+          </ProfilePicture>
+          <Username>
+            {userInfo.first_name} {userInfo.last_name}
+          </Username>
+        </ProfileContainer>
+        <BottomSection>
+          <Sidebar userInfo={userInfo} />
+          {renderComponent}
+        </BottomSection>
+      </Container>
+    </>
   );
 };
 
@@ -29,8 +31,7 @@ const Container = styled.div`
   flex-direction: column;
   width: 70%;
   margin: auto;
-  margin-top: 20px;
-  margin-bottom: 100px;
+  margin-top: 120px;
   @media (min-width: 1920px){
     width: 55%;
   }

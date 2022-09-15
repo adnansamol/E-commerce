@@ -1,54 +1,105 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { userRegister } from "../../../services/user-api";
 import styled from "styled-components";
 // import { Close } from "@material-ui/icons";
 import { colors } from "../../../constants/colors";
-let defaultUser = {
-  first_name: "",
-  last_name: "",
-  email: "",
-  phone_number: 0,
-  password: "",
-  avatar: {
-    public_id: "public_id",
-    url: "url",
-  },
-};
+import { FaPlus } from "react-icons/fa";
+import { useState } from "react";
+import {
+  confirmPasswordAuthentication,
+  emailAuthentication,
+  nameAuthentication,
+  passwordAuthentication,
+  phoneAuthentication,
+} from "../../../utils/form-authentication";
+
 const UserSignupPage = () => {
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [isNameValid, setisNameValid] = useState({
+    valid: true,
+    message: "",
+  });
+  const [isPassValid, setisPassValid] = useState({
+    valid: true,
+    message: "",
+  });
+  const [isEmailValid, setisEmailValid] = useState({
+    valid: true,
+    message: "",
+  });
+  const [isPhoneValid, setisPhoneValid] = useState({
+    valid: true,
+    message: "",
+  });
+  const [isConfirmPassValid, setisConfirmPassValid] = useState({
+    valid: true,
+    message: "",
+  });
+
+  const navigate = useNavigate();
   const registerFormHandler = async (event) => {
     event.preventDefault();
-    const password = event.target.password.value;
+
     const confirmPassword = event.target.confirmPassword.value;
-    const phoneNumber = +event.target.phone.value;
-    if (userAuthenticate({ password, confirmPassword, phoneNumber })) {
-      const user = {
-        first_name: event.target.fname.value,
-        last_name: event.target.lname.value,
-        email: event.target.email.value,
-        phone_number: +event.target.phone.value,
-        password: event.target.password.value,
-        public_id: "public_id",
-        url: "url",
-      };
-      console.log(user);
-      await userRegister(user);
+    const user = {
+      first_name: event.target.fname.value,
+      last_name: event.target.lname.value,
+      email: event.target.email.value,
+      phone_number: +event.target.phone.value,
+      password: event.target.password.value,
+      public_id: "public_id",
+      url: "url",
+    };
+    setisEmailValid({
+      valid: emailAuthentication(user.email),
+      message: "Email is invalid!",
+    });
+    setisPassValid({
+      valid: passwordAuthentication(user.password),
+      message: "Password must contain atleast 8 characters!",
+    });
+    setisPhoneValid({
+      valid: phoneAuthentication(user.phone_number),
+      message: "Phone number must contain alteast 10 letters",
+    });
+    setisNameValid({
+      valid: nameAuthentication(user.first_name, user.last_name),
+      message: "Name must contain more than 3 characters",
+    });
+    setisConfirmPassValid({
+      valid: confirmPasswordAuthentication(user.password, confirmPassword),
+      message: "Password does not match!",
+    });
+    if (formAuthentication()) {
+      setIsProcessing(true);
+      const data = await userRegister(user);
+      setIsProcessing(false);
+      if (data === undefined) {
+        setisEmailValid({ valid: false, message: "Email already exist!" });
+      } else {
+        navigate("/user/login");
+      }
     }
   };
 
-  const userAuthenticate = (data) => {
-    if (data.password === data.confirmPassword && data.phoneNumber > 0) {
+  const formAuthentication = () => {
+    if (
+      isEmailValid.valid &&
+      isPassValid.valid &&
+      isNameValid.valid &&
+      isPhoneValid &&
+      isConfirmPassValid.valid
+    ) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   };
-
   return (
     <>
       <CloseIcon>
         <Link style={{ color: "black" }} to="/">
-          {/* <Close style={{ fontSize: 28 }} /> */}X
+          <FaPlus style={{ transform: "rotate(45deg)", fontSize: 30 }} />
         </Link>
       </CloseIcon>
       <form onSubmit={registerFormHandler}>
@@ -58,41 +109,46 @@ const UserSignupPage = () => {
             Already a member?<Link to="/user/login"> Log In</Link>
           </Prompt>
           <Label className="signup-label">First Name</Label>
-          <Input
-            className="signup-input"
-            type="text"
-            minLength={4}
-            required
-            name="fname"
-          />
+          <InputContainer>
+            <Input className="signup-input" type="text" name="fname" />
+            {!isNameValid.valid && <Error>{isNameValid.message}</Error>}
+          </InputContainer>
           <Label className="signup-label">Last Name</Label>
-          <Input
-            className="signup-input"
-            type="text"
-            minLength={4}
-            required
-            name="lname"
-          />
+          <InputContainer>
+            <Input className="signup-input" type="text" name="lname" />
+            {!isNameValid.valid && <Error>{isNameValid.message}</Error>}
+          </InputContainer>
           <Label className="signup-label">Email</Label>
-          <Input className="signup-input" type="email" required name="email" />
+          <InputContainer>
+            <Input className="signup-input" type="email" name="email" />
+            {!isEmailValid.valid && <Error>{isEmailValid.message}</Error>}
+          </InputContainer>
           <Label className="signup-label">Password</Label>
-          <Input
-            className="signup-input"
-            type="password"
-            required
-            name="password"
-          />
+          <InputContainer>
+            <Input className="signup-input" type="password" name="password" />
+            {!isPassValid.valid && <Error>{isPassValid.message}</Error>}
+          </InputContainer>
           <Label className="signup-label">Confirm Password</Label>
-          <Input
-            className="signup-input"
-            type="password"
-            required
-            name="confirmPassword"
-          />
+          <InputContainer>
+            <Input
+              className="signup-input"
+              type="password"
+              name="confirmPassword"
+            />
+            {!isConfirmPassValid.valid && (
+              <Error>{isConfirmPassValid.message}</Error>
+            )}
+          </InputContainer>
           <Label className="signup-label">Phone Number</Label>
-          <Input className="signup-input" type="text" required name="phone" />
-          <Button type="submit" className="signup-button">
-            Register
+          <InputContainer>
+            <Input className="signup-input" type="text" name="phone" />
+            {!isPhoneValid.valid && <Error>{isPhoneValid.message}</Error>}
+          </InputContainer>
+          <Button
+            type="submit"
+            style={isProcessing ? { backgroundColor: "grey" } : {}}
+          >
+            {isProcessing ? "Creating Account" : "Register"}
           </Button>
         </Container>
       </form>
@@ -134,6 +190,9 @@ const Label = styled.label`
   font-size: 16px;
   color: grey;
 `;
+const InputContainer = styled.div`
+  margin-bottom: 30px;
+`;
 const Input = styled.input`
   background-color: inherit;
   border: none;
@@ -141,7 +200,7 @@ const Input = styled.input`
   width: 310px;
   font-size: 18px;
   padding: 2px 1px;
-  margin-bottom: 30px;
+
   &:focus {
     outline: none;
     border-bottom: 1px solid ${colors.primary600};
@@ -162,11 +221,6 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const ForgotPassword = styled.div`
-  font-size: 16px;
-  text-align: left;
-  margin-top: 8px;
-`;
 const Prompt = styled.div`
   font-size: 18px;
   padding: 20px;

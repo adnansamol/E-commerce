@@ -9,13 +9,14 @@ import Footer from "../../Footer/Footer";
 import Loading from "../../UI/Loading";
 import ProfileUI from "../../UI/ProfileUI";
 import { dimensions } from "../../../constants/responsive";
+import { sellerProfile } from "../../../services/seller-api";
 const UpdateUserProfilePage = () => {
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const userProfileHandler = async () => {
-      const user = await userProfile();
-      setUserInfo(user.user);
+      let user = await userProfile();
+      setUserInfo(user);
       setIsLoading(false);
     };
     userProfileHandler();

@@ -8,16 +8,14 @@ import Navbar from "../Navbar/Navbar";
 import { colors } from "../../constants/colors";
 import Loading from "../UI/Loading";
 import { useNavigate } from "react-router";
-import { createRef } from "react";
-import { useRef } from "react";
 
-const CreateProductPage = () => {
+let imageUrl;
+const UpdateProductPage = () => {
   const [files, setFiles] = useState([]);
   const [categories, setCategories] = useState();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const imagePrev = useRef();
-  const imageInput = useRef();
+
   useEffect(() => {
     const fetchCategories = async () => {
       const data = await getAllCategories();
@@ -26,12 +24,11 @@ const CreateProductPage = () => {
     };
     fetchCategories();
   }, []);
-
   const imageUploadHandler = (event) => {
     setFiles([...event.target.files]);
-    imagePrev.current.src = URL.createObjectURL(event.target.files[0]);
-    console.log(event.target.files[0]);
+    imageUrl = event.target.files[0];
   };
+  
   const createProductHandler = async (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -51,7 +48,7 @@ const CreateProductPage = () => {
     const response = await createProduct(formData);
     navigate("/");
   };
-  console.log(imagePrev);
+
   return (
     <>
       <Navbar />
@@ -59,27 +56,15 @@ const CreateProductPage = () => {
         <Loading />
       ) : (
         <form onSubmit={createProductHandler}>
-          <Header>List your product</Header>
+          <Header>Edit your product listing</Header>
           <Container>
             <LeftContainer>
-              <input
-                type="file"
-                ref={imageInput}
-                onChange={imageUploadHandler}
-                multiple
-                hidden
-              />
               <ImageUploader
-                ref={imagePrev}
-                src={ImagePlaceholder}
-                alt="image"
+                type="file"
+                onChange={imageUploadHandler}
+                name="images"
+                multiple
               />
-              <UploadButton
-                type="button"
-                onClick={() => imageInput.current.click()}
-              >
-                Upload
-              </UploadButton>
             </LeftContainer>
             <RightContainer>
               <Input name="name" placeholder="Add product name" />
@@ -114,7 +99,7 @@ const CreateProductPage = () => {
                 name="stock"
                 placeholder="Add product stock amount"
               />
-              <Button>List Product</Button>
+              <Button>Update Listing</Button>
             </RightContainer>
           </Container>
         </form>
@@ -124,7 +109,7 @@ const CreateProductPage = () => {
   );
 };
 
-export default CreateProductPage;
+export default UpdateProductPage;
 
 const Container = styled.div`
   display: flex;
@@ -137,28 +122,19 @@ const Header = styled.h1`
   width: fit-content;
   padding: 12px;
 `;
-
+const ImageUploader = styled.input`
+  -webkit-user-select: none;
+  background: url(${ImagePlaceholder}) center no-repeat;
+  background-size: 300px 300px;
+  height: 300px;
+  width: 300px;
+  cursor: pointer;
+  &::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+`;
 const LeftContainer = styled.div`
   padding: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  align-items: center;
-`;
-const ImageUploader = styled.img`
-  width: 320px;
-  height: 320px;
-  border-radius: 10px;
-`;
-const UploadButton = styled.button`
-  width: fit-content;
-  padding: 10px 30px;
-  font-size: 24px;
-  border: none;
-  border-radius: 10px;
-  color: #fff;
-  background-color: green;
-  cursor: pointer;
 `;
 const RightContainer = styled.div`
   padding: 8px;

@@ -32,8 +32,7 @@ export const sellerProfile = async () => {
         buzzaar,
       },
     });
-    console.log(response.data);
-    return response.data;
+    return response.data.seller;
   } catch (error) {
     console.log("something went wrong in seller profile api: ", error);
   }
@@ -47,5 +46,15 @@ export const sellerLogout = async () => {
     return response;
   } catch (error) {
     console.log("something went wrong in seller logout api: ", error);
+  }
+};
+export const getSellerName = async (id) => {
+  try {
+    const response = await axios.post(`${base_url}/seller/getSellerName`, {
+      seller_id: id,
+    });
+    return response.data;
+  } catch (error) {
+    console.log("something went wrong in seller name api: ", error);
   }
 };

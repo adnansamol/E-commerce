@@ -1,9 +1,9 @@
 // import { CreateOutlined } from "@material-ui/icons";
 import { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../../../constants/colors";
-import { UserContext } from "../../../context/user-context";
+import { sellerProfile } from "../../../services/seller-api";
 import { userLogout, userProfile } from "../../../services/user-api";
 import Footer from "../../Footer/Footer";
 import Navbar from "../../Navbar/Navbar";
@@ -13,21 +13,20 @@ import ProfileUI from "../../UI/ProfileUI";
 const UserProfilePage = () => {
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const userCtx = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userProfileHandler = async () => {
-      const user = await userProfile();
-      setUserInfo(user.user);
+      let user = await userProfile();
+      setUserInfo(user);
       setIsLoading(false);
     };
     userProfileHandler();
   }, []);
 
   const logoutUser = async () => {
-    const response = await userLogout();
-    userCtx.setIsAuth(false);
-    console.log(response);
+    await userLogout();
+    navigate("/");
   };
 
   const profileComponent = (
