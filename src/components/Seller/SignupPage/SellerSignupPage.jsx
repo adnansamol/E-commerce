@@ -12,6 +12,8 @@ import {
   passwordAuthentication,
   phoneAuthentication,
 } from "../../../utils/form-authentication";
+
+
 const SellerSignupPage = () => {
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState();
