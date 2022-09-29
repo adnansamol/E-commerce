@@ -1,9 +1,17 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { userRegister } from "../../../services/user-api";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 // import { Close } from "@material-ui/icons";
 import { colors } from "../../../constants/colors";
+import {
+  confirmPasswordAuthentication,
+  emailAuthentication,
+  nameAuthentication,
+  passwordAuthentication,
+  phoneAuthentication,
+} from "../../../utils/form-authentication";
 let defaultUser = {
   first_name: "",
   last_name: "",
@@ -16,30 +24,6 @@ let defaultUser = {
   },
 };
 const UserSignupPage = () => {
-<<<<<<< Updated upstream
-  const registerFormHandler = async (event) => {
-    event.preventDefault();
-    const password = event.target.password.value;
-    const confirmPassword = event.target.confirmPassword.value;
-    const phoneNumber = +event.target.phone.value;
-    if (userAuthenticate({ password, confirmPassword, phoneNumber })) {
-      const user = {
-        first_name: event.target.fname.value,
-        last_name: event.target.lname.value,
-        email: event.target.email.value,
-        phone_number: +event.target.phone.value,
-        password: event.target.password.value,
-        public_id: "public_id",
-        url: "url",
-      };
-      console.log(user);
-      await userRegister(user);
-    }
-  };
-
-  const userAuthenticate = (data) => {
-    if (data.password === data.confirmPassword && data.phoneNumber > 0) {
-=======
   const [isProcessing, setIsProcessing] = useState(false);
   const [isNameValid, setisNameValid] = useState({
     valid: false,
@@ -93,15 +77,12 @@ const UserSignupPage = () => {
       isPhoneValid.valid &&
       isConfirmPassValid.valid
     ) {
->>>>>>> Stashed changes
       return true;
     } else {
       return false;
     }
   };
 
-<<<<<<< Updated upstream
-=======
   const registerFormHandler = async (event) => {
     event.preventDefault();
 
@@ -128,7 +109,6 @@ const UserSignupPage = () => {
     }
   };
 
->>>>>>> Stashed changes
   return (
     <>
       <CloseIcon>
@@ -142,44 +122,6 @@ const UserSignupPage = () => {
           <Prompt>
             Already a member?<Link to="/user/login"> Log In</Link>
           </Prompt>
-<<<<<<< Updated upstream
-          <Label className="signup-label">First Name</Label>
-          <Input
-            className="signup-input"
-            type="text"
-            minLength={4}
-            required
-            name="fname"
-          />
-          <Label className="signup-label">Last Name</Label>
-          <Input
-            className="signup-input"
-            type="text"
-            minLength={4}
-            required
-            name="lname"
-          />
-          <Label className="signup-label">Email</Label>
-          <Input className="signup-input" type="email" required name="email" />
-          <Label className="signup-label">Password</Label>
-          <Input
-            className="signup-input"
-            type="password"
-            required
-            name="password"
-          />
-          <Label className="signup-label">Confirm Password</Label>
-          <Input
-            className="signup-input"
-            type="password"
-            required
-            name="confirmPassword"
-          />
-          <Label className="signup-label">Phone Number</Label>
-          <Input className="signup-input" type="text" required name="phone" />
-          <Button type="submit" className="signup-button">
-            Register
-=======
           <Label>First Name</Label>
           <InputContainer>
             <Input type="text" name="fname" />
@@ -217,7 +159,6 @@ const UserSignupPage = () => {
             style={isProcessing ? { backgroundColor: "grey" } : {}}
           >
             {isProcessing ? "Creating Account" : "Register"}
->>>>>>> Stashed changes
           </Button>
         </Container>
       </form>
@@ -249,6 +190,7 @@ const CloseIcon = styled.div`
     width: 97%;
   }
 `;
+const InputContainer = styled.div``;
 const Title = styled.div`
   text-align: center;
   font-size: 50px;

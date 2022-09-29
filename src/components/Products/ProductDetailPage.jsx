@@ -1,27 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import styled from "styled-components";
 import { colors } from "../../constants/colors";
 import { dimensions } from "../../constants/responsive";
-import { getProduct } from "../../services/product-api";
+import { getProduct, deleteProduct } from "../../services/product-api";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import Loading from "../UI/Loading";
 import { FaArrowLeft, FaArrowRight, FaCartPlus } from "react-icons/fa";
+import { UserContext } from "../../context/user-context";
 const ProductDetailPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-<<<<<<< Updated upstream
-=======
   const [sellerID, setSellerID] = useState("");
   const [sellerName, setSellerName] = useState("Unknown");
   const [previewImage, setPreviewImage] = useState(0);
   const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
->>>>>>> Stashed changes
   useEffect(() => {
     const retrieveProduct = async () => {
       const product = await getProduct(id);
@@ -30,9 +28,6 @@ const ProductDetailPage = () => {
     };
     retrieveProduct();
   }, []);
-<<<<<<< Updated upstream
-  console.log(product.images);
-=======
 
   const deleteProductHandler = async () => {
     await deleteProduct(product._id);
@@ -54,7 +49,6 @@ const ProductDetailPage = () => {
     }
   };
 
->>>>>>> Stashed changes
   return (
     <>
       <Navbar />
@@ -84,13 +78,6 @@ const ProductDetailPage = () => {
                   </span>
                   ratings
                 </p>
-<<<<<<< Updated upstream
-                <SizeContainer>
-                  {product.size.map((item) => (
-                    <Size>{item}</Size>
-                  ))}
-                </SizeContainer>
-=======
                 {product.size.length > 1 && (
                   <SizeContainer>
                     {product.size.map((item) => (
@@ -98,7 +85,6 @@ const ProductDetailPage = () => {
                     ))}
                   </SizeContainer>
                 )}
->>>>>>> Stashed changes
                 <Stock>
                   Stock: <b>{product.stock}</b>
                 </Stock>
@@ -142,8 +128,6 @@ const Container = styled.div`
     flex-direction: column;
   }
 `;
-<<<<<<< Updated upstream
-=======
 const LeftArrow = styled(FaArrowLeft)`
   position: absolute;
   left: 25px;
@@ -170,7 +154,6 @@ const RightArrow = styled(FaArrowRight)`
     background-color: rgba(0, 0, 0, 0.4);
   }
 `;
->>>>>>> Stashed changes
 const Image = styled.img`
   width: 320px;
   height: 320px;

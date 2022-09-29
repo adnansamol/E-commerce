@@ -4,8 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../../../constants/colors";
 import { useState } from "react";
-<<<<<<< Updated upstream
-=======
 import { FaPlus } from "react-icons/fa";
 import {
   confirmPasswordAuthentication,
@@ -14,7 +12,6 @@ import {
   passwordAuthentication,
   phoneAuthentication,
 } from "../../../utils/form-authentication";
->>>>>>> Stashed changes
 const SellerSignupPage = () => {
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState();
@@ -107,56 +104,11 @@ const SellerSignupPage = () => {
         </Link>
       </CloseIcon>
       <form onSubmit={registerFormHandler}>
-<<<<<<< Updated upstream
-        <Container className="signup-container">
-          <Title className="signup-title">Become a Seller</Title>
-=======
         <Container>
           <Title>Sign Up</Title>
->>>>>>> Stashed changes
           <Prompt>
             Already a member?<Link to="/user/login"> Log In</Link>
           </Prompt>
-<<<<<<< Updated upstream
-          <Label className="signup-label">First Name</Label>
-          <Input
-            className="signup-input"
-            type="text"
-            minLength={4}
-            required
-            name="fname"
-          />
-          <Label className="signup-label">Last Name</Label>
-          <Input
-            className="signup-input"
-            type="text"
-            minLength={4}
-            required
-            name="lname"
-          />
-          <Label className="signup-label">Email</Label>
-          <Input className="signup-input" type="email" required name="email" />
-          <Label className="signup-label">Password</Label>
-          <Input
-            className="signup-input"
-            type="password"
-            required
-            name="password"
-          />
-          <Label className="signup-label">Confirm Password</Label>
-          <Input
-            className="signup-input"
-            type="password"
-            required
-            name="confirmPassword"
-          />
-          <Label className="signup-label">Phone Number</Label>
-          <Input className="signup-input" type="text" required name="phone" />
-          <Button
-            type="submit"
-            className="signup-button"
-            style={isProcessing && { backgroundColor: "grey" }}
-=======
           <Label>First Name</Label>
           <InputContainer>
             <Input type="text" name="fname" />
@@ -192,7 +144,6 @@ const SellerSignupPage = () => {
           <Button
             type="submit"
             style={isProcessing ? { backgroundColor: "grey" } : {}}
->>>>>>> Stashed changes
           >
             {isProcessing ? "Creating Account" : "Register"}
           </Button>

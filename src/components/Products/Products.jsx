@@ -5,12 +5,8 @@ import styled from "styled-components";
 import LinkWrapper from "../UI/LinkWrapper";
 import VerticalBar from "../UI/VerticalBar";
 import { dimensions } from "../../constants/responsive";
-<<<<<<< Updated upstream
-
-=======
 import RangeBar from "../UI/RangeBar";
 import { useEffect } from "react";
->>>>>>> Stashed changes
 const Products = ({ products, title }) => {
   const [priceSort, setPriceSort] = useState("");
   const [productsState, setProductsState] = useState([]);
@@ -57,32 +53,14 @@ const Products = ({ products, title }) => {
         </Select>
       </SortContainer>
       <Container>
-<<<<<<< Updated upstream
         <VerticalBar title="Filters">
-          <Price>Price</Price>
-        </VerticalBar>
-        <ProductContainer>
-          {products.map((product) => (
-            <LinkWrapper>
-              <Link to={`/product/${product._id}`} key={product._id}>
-                <Product
-                  key={product._id}
-                  name={product.name}
-                  price={product.price}
-                  imageUrl={product.images[0].url}
-                />
-              </Link>
-            </LinkWrapper>
-          ))}
-=======
-        <FilterBar title="Filters">
           <RangeBar
             min={0}
             max={10000}
             minGap={1000}
             priceFilterHandler={priceFilterHandler}
           />
-        </FilterBar>
+        </VerticalBar>
         <ProductContainer>
           {productsState.length > 0 ? (
             productsState.map((product) => (
@@ -99,7 +77,6 @@ const Products = ({ products, title }) => {
           ) : (
             <NotFound>No product found!</NotFound>
           )}
->>>>>>> Stashed changes
         </ProductContainer>
       </Container>
     </>
@@ -110,24 +87,17 @@ export default Products;
 
 const Container = styled.div`
   display: flex;
-<<<<<<< Updated upstream
-=======
   width: 100%;
   justify-content: flex-start;
   @media (max-width: ${dimensions.mobileWidth}) {
     flex-direction: column;
   }
->>>>>>> Stashed changes
 `;
 const ProductContainer = styled.div`
   display: grid;
   width: 1000px;
   gap: 20px;
   grid-template-columns: auto auto auto auto;
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
   @media (max-width: 768px) {
     grid-template-columns: auto auto;
   }
