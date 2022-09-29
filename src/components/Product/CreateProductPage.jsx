@@ -2,18 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getAllCategories } from "../../services/category-api";
 import { createProduct } from "../../services/product-api";
-<<<<<<< Updated upstream
-import { sellerProfile } from "../../services/seller-api";
-
-const Container = styled.div``;
-const Input = styled.input``;
-const Button = styled.button``;
-
-const CreateProductPage = () => {
-  const [files, setFiles] = useState([]);
-  const [category, setCategory] = useState();
-
-=======
 import ImagePlaceholder from "../../assets/product/image-placeholder.jpg";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
@@ -31,20 +19,13 @@ const CreateProductPage = () => {
   const navigate = useNavigate();
   const imagePrev = useRef();
   const imageInput = useRef();
->>>>>>> Stashed changes
   useEffect(() => {
     const fetchCategories = async () => {
       const data = await getAllCategories();
-      setCategory(data.categories);
+      setCategories(data.categories);
     };
     fetchCategories();
-    console.log(category);
   }, []);
-<<<<<<< Updated upstream
-  console.log(category);
-  const imageUploadHandler = (event) => {
-    setFiles([...event.target.files]);
-=======
 
   const nextImageHandler = () => {
     if (previewImage >= files.length) {
@@ -68,7 +49,6 @@ const CreateProductPage = () => {
   const imageUploadHandler = (event) => {
     setFiles([...event.target.files]);
     imagePrev.current.src = URL.createObjectURL(event.target.files[0]);
->>>>>>> Stashed changes
   };
   console.log(files);
   const createProductHandler = async (event) => {
@@ -77,7 +57,7 @@ const CreateProductPage = () => {
     formData.append("name", event.target.name.value);
     formData.append("description", event.target.description.value);
     formData.append("price", +event.target.price.value);
-    formData.append("category", category[0]._id);
+    formData.append("category", categories[0]._id);
     formData.append("colour", "red,blue");
     formData.append("size", "S,M,L");
     formData.append("customizable", false);
@@ -86,38 +66,6 @@ const CreateProductPage = () => {
     for (let i = 0; i < files.length; i++) {
       formData.append("images", files[i]);
     }
-<<<<<<< Updated upstream
-    // const product = {
-    //   name: event.target.name.value,
-    //   description: event.target.description.value,
-    //   price: +event.target.price.value,
-    //   category: "623f2d1173cbf70cf448f0f5",
-    //   colour: "red,blue",
-    //   size: "S,M,L",
-    //   stock: event.target.stock.value,
-    //   images: files,
-    // };
-    const response = await createProduct(formData);
-    console.log(response);
-  };
-
-  return (
-    <Container>
-      <form onSubmit={createProductHandler}>
-        <Input
-          type="file"
-          onChange={imageUploadHandler}
-          name="images"
-          multiple
-        />
-        Product name: <Input name="name" />
-        Product Description: <Input name="description" />
-        Product price: <Input name="price" />
-        Product stock: <Input name="stock" />
-        <Button>Create</Button>
-      </form>
-    </Container>
-=======
     setIsProcessing(true);
     const response = await createProduct(formData);
     setIsProcessing(false);
@@ -204,18 +152,11 @@ const CreateProductPage = () => {
       )}
       <Footer />
     </>
->>>>>>> Stashed changes
   );
 };
 
 export default CreateProductPage;
 
-<<<<<<< Updated upstream
-//  name, description, price, category, stock, colour, size, customizable,
-// 	images (this will take multiple image files)
-// Here in category, dropdown should be there and needs to populate with the values coming from Category API and from that need to fetch id.
-// 	It will create product and will send product details as a json response.
-=======
 const Container = styled.div`
   display: flex;
   padding: 8px;
@@ -320,4 +261,3 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
 `;
->>>>>>> Stashed changes
