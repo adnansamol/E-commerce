@@ -1,57 +1,39 @@
-import React from "react";
-import { Link, Navigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { userLogin } from "../../../services/user-api";
 import styled from "styled-components";
-// import { Close } from "@material-ui/icons";
+import {
+  emailAuthentication,
+  passwordAuthentication,
+} from "../../../utils/form-authentication";
 import { colors } from "../../../constants/colors";
-import { UserContext } from "../../../context/user-context";
-import { useContext } from "react";
+import { FaPlus } from "react-icons/fa";
+import { useEffect } from "react";
 const UserLoginPage = () => {
-  const [isValid, setIsValid] = useState({ valid: true, message: "" });
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const userCtx = useContext(UserContext);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isEmailValid, setIsEmailValid] = useState();
+  const [isPassValid, setIsPassValid] = useState();
+
   const loginUserHandler = async (event) => {
     event.preventDefault();
 
-    const user = {
-      email: event.target.email.value,
-      password: event.target.password.value,
-    };
-    if (isUserAuthenticated(user)) {
+    if (isEmailValid && isPassValid) {
       setIsLoading(true);
-      const responseData = await userLogin(user);
+      const data = await userLogin();
       setIsLoading(false);
-      if (responseData === undefined) {
-        setIsValid({
-          valid: false,
-          message: <Error>Account does not exist! </Error>,
-        });
-      } else {
-        userCtx.setIsAuth(true);
-        navigate("/");
-      }
+
+      !data ? setIsEmailValid(false) : navigate("/");
     }
   };
-
-  const isUserAuthenticated = (user) => {
-    console.log(isValid);
-    const regExp =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-    if (user.email !== "" || user.password !== "") {
-      if (user.password.length >= 8 && user.email.match(regExp)) {
-        setIsValid({ valid: true, message: "" });
-        return true;
-      }
-    }
-    setIsValid({
-      valid: false,
-      message: <Error>Please enter valid credentials. </Error>,
-    });
-    return false;
+  const emailAuthHandler = (event) => {
+    setIsEmailValid(emailAuthentication(event.target.value));
+  };
+  const passwordAuthHandler = (event) => {
+    setIsPassValid(passwordAuthentication(event.target.value));
   };
   return (
     <>
@@ -61,7 +43,7 @@ const UserLoginPage = () => {
         <>
           <CloseIcon>
             <Link style={{ color: "black" }} to="/">
-              {/* <Close style={{ fontSize: 28 }} /> */}X
+              <FaPlus style={{ transform: "rotate(45deg)", fontSize: 30 }} />
             </Link>
           </CloseIcon>
           <form onSubmit={loginUserHandler}>
@@ -71,17 +53,42 @@ const UserLoginPage = () => {
                 New to this site?<Link to="/user/register"> Sign Up</Link>
               </Prompt>
               <Label>Email</Label>
-              <Input name="email" />
+              <InputContainer>
+                <Input
+                  id="email"
+                  onChange={(event) => setEmail(event.target.value)}
+                  onBlur={emailAuthHandler}
+                  style={
+                    isEmailValid === false
+                      ? { borderBottom: "1px solid red" }
+                      : {}
+                  }
+                />
+                {isEmailValid === false && <Error>Email is invalid</Error>}
+              </InputContainer>
+
               <Label>Password</Label>
-              <Input name="password" type="password" />
-              {!isValid.valid && isValid.message}
+              <InputContainer>
+                <Input
+                  onChange={(event) => setPassword(event.target.value)}
+                  onBlur={passwordAuthHandler}
+                  type="password"
+                  id="password"
+                  style={
+                    isPassValid === false
+                      ? { borderBottom: "1px solid red" }
+                      : {}
+                  }
+                />
+                {isPassValid === false && <Error>Password is invalid</Error>}
+              </InputContainer>
               <Link to="/user/password/forget">
                 <ForgotPassword>Forgot Password?</ForgotPassword>
               </Link>
               <Button
                 type="submit"
-                style={isLoading ? { backgroundColor: "grey" } : {}}
                 disabled={isLoading ? true : false}
+                style={isLoading ? { backgroundColor: "grey" } : {}}
               >
                 {isLoading ? "Logging in..." : "Log In"}
               </Button>
@@ -138,6 +145,9 @@ const Label = styled.label`
   font-size: 16px;
   color: grey;
 `;
+const InputContainer = styled.div`
+  margin-bottom: 30px;
+`;
 const Input = styled.input`
   background-color: inherit;
   border: none;
@@ -145,7 +155,7 @@ const Input = styled.input`
   width: 310px;
   font-size: 18px;
   padding: 2px 1px;
-  margin-bottom: 30px;
+
   &:focus {
     outline: none;
     border-bottom: 1px solid ${colors.primary600};
