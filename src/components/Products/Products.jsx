@@ -41,10 +41,10 @@ const Products = ({ products, title }) => {
       break;
   }
   return (
-    <>
+    <Component>
       <Title>{title}</Title>
 
-      <hr />
+     <Divider/>
       <SortContainer>
         <Select name="filter" onChange={priceSortHandler}>
           <Option>Sort By</Option>
@@ -62,8 +62,11 @@ const Products = ({ products, title }) => {
           />
         </VerticalBar>
         <ProductContainer>
-          {productsState.length > 0 ? (
+        
+          {productsState.length > 0 ? 
+            <GridContainer>{
             productsState.map((product) => (
+              
               <LinkWrapper key={product._id}>
                 <Link to={`/product/${product._id}`} key={product._id}>
                   <Product
@@ -73,35 +76,48 @@ const Products = ({ products, title }) => {
                   />
                 </Link>
               </LinkWrapper>
+              
             ))
-          ) : (
+            }</GridContainer>: (
             <NotFound>No product found!</NotFound>
           )}
+          
         </ProductContainer>
       </Container>
-    </>
+    </Component>
   );
 };
 
 export default Products;
 
+const Component = styled.div`
+  width:100%;
+`
 const Container = styled.div`
   display: flex;
   width: 100%;
+  
   justify-content: flex-start;
   @media (max-width: ${dimensions.mobileWidth}) {
     flex-direction: column;
   }
 `;
+const Divider = styled.div`
+  border-bottom: 1px solid rgba(0,0,0,0.5);
+`;
 const ProductContainer = styled.div`
-  display: grid;
-  width: 1000px;
+    width: 1000px;
+`;
+const GridContainer = styled.div`
+display: grid;
+  width: fit-content;
+  padding-left: 20px;
   gap: 20px;
   grid-template-columns: auto auto auto auto;
   @media (max-width: 768px) {
     grid-template-columns: auto auto;
   }
-`;
+`
 const Title = styled.div`
   font-size: 30px;
   font-weight: 600;
@@ -126,11 +142,7 @@ const Select = styled.select`
   }
 `;
 const Option = styled.option``;
-const Price = styled.p`
-  font-size: 20px;
-  font-weight: 500;
-  color: #7a7a7a;
-`;
+
 const NotFound = styled.p`
   font-size: 30px;
   font-weight: 600;

@@ -23,6 +23,7 @@ const CreateProductPage = () => {
     const fetchCategories = async () => {
       const data = await getAllCategories();
       setCategories(data.categories);
+      setLoading(false)
     };
     fetchCategories();
   }, []);

@@ -42,11 +42,11 @@ const RangeBar = ({ min, max, minGap, priceFilterHandler }) => {
       <Container>
         <SubContainer>
           <Label>Min</Label>
-          <Input ref={minInputRef} defaultValue={min} />
+          <Input ref={minInputRef} defaultValue={min} disabled/>
         </SubContainer>
         <SubContainer>
           <Label>Max</Label>
-          <Input ref={maxInputRef} defaultValue={max} />
+          <Input ref={maxInputRef} defaultValue={max} disabled />
         </SubContainer>
       </Container>
       <Slider>
