@@ -82,6 +82,7 @@ const Bar = styled.div`
   height: 100px;
   padding: 0px;
   width: 100%;
+  z-index: 500;
 `;
 const Container = styled.div`
   display: flex;

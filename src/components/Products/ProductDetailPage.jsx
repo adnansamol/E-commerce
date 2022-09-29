@@ -8,10 +8,20 @@ import { getProduct } from "../../services/product-api";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import Loading from "../UI/Loading";
+import { FaArrowLeft, FaArrowRight, FaCartPlus } from "react-icons/fa";
 const ProductDetailPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+<<<<<<< Updated upstream
+=======
+  const [sellerID, setSellerID] = useState("");
+  const [sellerName, setSellerName] = useState("Unknown");
+  const [previewImage, setPreviewImage] = useState(0);
+  const navigate = useNavigate();
+
+  const { user } = useContext(UserContext);
+>>>>>>> Stashed changes
   useEffect(() => {
     const retrieveProduct = async () => {
       const product = await getProduct(id);
@@ -20,7 +30,31 @@ const ProductDetailPage = () => {
     };
     retrieveProduct();
   }, []);
+<<<<<<< Updated upstream
   console.log(product.images);
+=======
+
+  const deleteProductHandler = async () => {
+    await deleteProduct(product._id);
+    navigate("/");
+  };
+  const nextImageHandler = () => {
+    if (previewImage === product.images.length - 1) {
+      setPreviewImage(0);
+    } else {
+      setPreviewImage((previewImage) => previewImage + 1);
+    }
+  };
+
+  const previousImageHandler = () => {
+    if (previewImage == 0) {
+      setPreviewImage(product.images.length - 1);
+    } else {
+      setPreviewImage((previewImage) => previewImage - 1);
+    }
+  };
+
+>>>>>>> Stashed changes
   return (
     <>
       <Navbar />
@@ -31,7 +65,14 @@ const ProductDetailPage = () => {
           <Component>
             <Container>
               <LeftContainer>
-                <Image src={product.images[0].url} alt="lamp" />
+                {product.images.length > 1 && (
+                  <>
+                    <LeftArrow onClick={previousImageHandler} />
+
+                    <RightArrow onClick={nextImageHandler} />
+                  </>
+                )}
+                <Image src={product.images[previewImage].url} alt="lamp" />
               </LeftContainer>
               <RightContainer>
                 <Name>{product.name}</Name>
@@ -43,11 +84,21 @@ const ProductDetailPage = () => {
                   </span>
                   ratings
                 </p>
+<<<<<<< Updated upstream
                 <SizeContainer>
                   {product.size.map((item) => (
                     <Size>{item}</Size>
                   ))}
                 </SizeContainer>
+=======
+                {product.size.length > 1 && (
+                  <SizeContainer>
+                    {product.size.map((item) => (
+                      <Size key={item}>{item}</Size>
+                    ))}
+                  </SizeContainer>
+                )}
+>>>>>>> Stashed changes
                 <Stock>
                   Stock: <b>{product.stock}</b>
                 </Stock>
@@ -91,6 +142,35 @@ const Container = styled.div`
     flex-direction: column;
   }
 `;
+<<<<<<< Updated upstream
+=======
+const LeftArrow = styled(FaArrowLeft)`
+  position: absolute;
+  left: 25px;
+  font-size: 20px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  padding: 8px;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+`;
+const RightArrow = styled(FaArrowRight)`
+  position: absolute;
+  font-size: 20px;
+  color: white;
+  right: 25px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  padding: 8px;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+`;
+>>>>>>> Stashed changes
 const Image = styled.img`
   width: 320px;
   height: 320px;
@@ -105,7 +185,7 @@ const LeftContainer = styled.div`
   border-right: none;
   border-radius: 8px 0px 0px 8px;
   background-color: #f0f0f0;
-
+  position: relative;
   @media (max-width: ${dimensions.mobileWidth}) {
     border-radius: 8px;
     border: 1px solid #d3d3d3;

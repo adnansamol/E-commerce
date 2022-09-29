@@ -4,37 +4,98 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../../../constants/colors";
 import { useState } from "react";
+<<<<<<< Updated upstream
+=======
+import { FaPlus } from "react-icons/fa";
+import {
+  confirmPasswordAuthentication,
+  emailAuthentication,
+  nameAuthentication,
+  passwordAuthentication,
+  phoneAuthentication,
+} from "../../../utils/form-authentication";
+>>>>>>> Stashed changes
 const SellerSignupPage = () => {
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState();
-  const registerFormHandler = async (event) => {
-    event.preventDefault();
-    const password = event.target.password.value;
-    const confirmPassword = event.target.confirmPassword.value;
-    const phoneNumber = +event.target.phone.value;
-    if (userAuthenticate({ password, confirmPassword, phoneNumber })) {
-      const user = {
-        first_name: event.target.fname.value,
-        last_name: event.target.lname.value,
-        email: event.target.email.value,
-        phone_number: +event.target.phone.value,
-        password: event.target.password.value,
-        public_id: "public_id",
-        url: "url",
-      };
-      console.log(user);
-      setIsProcessing(true);
-      await sellerRegister(user);
-      setIsProcessing(false);
-      navigate("/seller/login");
+
+  const [isNameValid, setisNameValid] = useState({
+    valid: false,
+    message: "",
+  });
+  const [isPassValid, setisPassValid] = useState({
+    valid: false,
+    message: "",
+  });
+  const [isEmailValid, setisEmailValid] = useState({
+    valid: false,
+    message: "",
+  });
+  const [isPhoneValid, setisPhoneValid] = useState({
+    valid: false,
+    message: "",
+  });
+  const [isConfirmPassValid, setisConfirmPassValid] = useState({
+    valid: false,
+    message: "",
+  });
+  const formAuthentication = (user) => {
+    setisEmailValid({
+      valid: emailAuthentication(user.email),
+      message: "Email is invalid!",
+    });
+    setisPassValid({
+      valid: passwordAuthentication(user.password),
+      message: "Password must contain atleast 8 characters!",
+    });
+    setisPhoneValid({
+      valid: phoneAuthentication(user.phone_number),
+      message: "Phone number must contain 10 numbers",
+    });
+    setisNameValid({
+      valid: nameAuthentication(user.first_name, user.last_name),
+      message: "Name must contain more than 3 characters",
+    });
+    setisConfirmPassValid({
+      valid: confirmPasswordAuthentication(user.password, user.confirmPassword),
+      message: "Password does not match!",
+    });
+
+    if (
+      isEmailValid.valid &&
+      isPassValid.valid &&
+      isNameValid.valid &&
+      isPhoneValid.valid &&
+      isConfirmPassValid.valid
+    ) {
+      return true;
     }
+    return false;
   };
 
-  const userAuthenticate = (data) => {
-    if (data.password === data.confirmPassword && data.phoneNumber > 0) {
-      return true;
-    } else {
-      return false;
+  const registerFormHandler = async (event) => {
+    event.preventDefault();
+
+    const user = {
+      first_name: event.target.fname.value,
+      last_name: event.target.lname.value,
+      email: event.target.email.value,
+      phone_number: +event.target.phone.value,
+      password: event.target.password.value,
+      confirmPassword: event.target.confirmPassword.value,
+      public_id: "public_id",
+      url: "url",
+    };
+
+    if (formAuthentication(user)) {
+      setIsProcessing(true);
+      const data = await sellerRegister(user);
+      setIsProcessing(false);
+      if (data === undefined) {
+        setisEmailValid({ valid: false, message: "Email already exist!" });
+      } else {
+        navigate("/user/login");
+      }
     }
   };
 
@@ -46,11 +107,17 @@ const SellerSignupPage = () => {
         </Link>
       </CloseIcon>
       <form onSubmit={registerFormHandler}>
+<<<<<<< Updated upstream
         <Container className="signup-container">
           <Title className="signup-title">Become a Seller</Title>
+=======
+        <Container>
+          <Title>Sign Up</Title>
+>>>>>>> Stashed changes
           <Prompt>
-            Already a seller?<Link to="/user/login"> Log In</Link>
+            Already a member?<Link to="/user/login"> Log In</Link>
           </Prompt>
+<<<<<<< Updated upstream
           <Label className="signup-label">First Name</Label>
           <Input
             className="signup-input"
@@ -89,6 +156,43 @@ const SellerSignupPage = () => {
             type="submit"
             className="signup-button"
             style={isProcessing && { backgroundColor: "grey" }}
+=======
+          <Label>First Name</Label>
+          <InputContainer>
+            <Input type="text" name="fname" />
+            {!isNameValid.valid && <Error>{isNameValid.message}</Error>}
+          </InputContainer>
+          <Label>Last Name</Label>
+          <InputContainer>
+            <Input type="text" name="lname" />
+            {!isNameValid.valid && <Error>{isNameValid.message}</Error>}
+          </InputContainer>
+          <Label>Email</Label>
+          <InputContainer>
+            <Input name="email" />
+            {!isEmailValid.valid && <Error>{isEmailValid.message}</Error>}
+          </InputContainer>
+          <Label>Password</Label>
+          <InputContainer>
+            <Input type="password" name="password" />
+            {!isPassValid.valid && <Error>{isPassValid.message}</Error>}
+          </InputContainer>
+          <Label>Confirm Password</Label>
+          <InputContainer>
+            <Input type="password" name="confirmPassword" />
+            {!isConfirmPassValid.valid && (
+              <Error>{isConfirmPassValid.message}</Error>
+            )}
+          </InputContainer>
+          <Label>Phone Number</Label>
+          <InputContainer>
+            <Input type="text" name="phone" />
+            {!isPhoneValid.valid && <Error>{isPhoneValid.message}</Error>}
+          </InputContainer>
+          <Button
+            type="submit"
+            style={isProcessing ? { backgroundColor: "grey" } : {}}
+>>>>>>> Stashed changes
           >
             {isProcessing ? "Creating Account" : "Register"}
           </Button>
@@ -124,13 +228,16 @@ const CloseIcon = styled.div`
 `;
 const Title = styled.div`
   text-align: center;
-  font-size: 40px;
+  font-size: 50px;
   color: black;
 `;
 
 const Label = styled.label`
   font-size: 16px;
   color: grey;
+`;
+const InputContainer = styled.div`
+  margin-bottom: 30px;
 `;
 const Input = styled.input`
   background-color: inherit;
@@ -139,7 +246,7 @@ const Input = styled.input`
   width: 310px;
   font-size: 18px;
   padding: 2px 1px;
-  margin-bottom: 30px;
+
   &:focus {
     outline: none;
     border-bottom: 1px solid ${colors.primary600};
@@ -160,11 +267,6 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const ForgotPassword = styled.div`
-  font-size: 16px;
-  text-align: left;
-  margin-top: 8px;
-`;
 const Prompt = styled.div`
   font-size: 18px;
   padding: 20px;

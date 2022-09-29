@@ -23,6 +23,7 @@ function App() {
   }
 
   return (
+<<<<<<< Updated upstream
     <>
       <BrowserRouter>
         <Routes>
@@ -35,6 +36,16 @@ function App() {
           <Route element={<ProtectedRoutes />}>
             <Route exact path="/seller/me" element={<SellerProfilePage />} />
             <Route exact path="/user/me" element={<UserProfilePage />} />
+=======
+    <UserContextProvider>
+      <div style={{ marginTop: 100 }}>
+        <BrowserRouter>
+          <Routes>
+            <Route exact path="/" element={<HomePage />} />
+            <Route exact path="/user/login" element={<UserLoginPage />} />
+            <Route exact path="/seller/login" element={<SellerLoginPage />} />
+            <Route exact path="/user/register" element={<UserSignupPage />} />
+>>>>>>> Stashed changes
             <Route
               exact
               path="/user/me/update"

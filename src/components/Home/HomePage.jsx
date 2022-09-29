@@ -42,6 +42,5 @@ export default HomePage;
 const Container = styled.div`
   @media (min-width: 1920px) {
     width: fit-content;
-    margin: auto;
   }
 `;
