@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { UserContext } from "../../../context/user-context";
 import styled from "styled-components";
 import { colors } from "../../../constants/colors";
+import { FaPlus } from "react-icons/fa";
 const SellerLogin = () => {
   const [isValid, setIsValid] = useState({ valid: true, message: "" });
   const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +31,9 @@ const SellerLogin = () => {
         });
       } else {
         userCtx.setIsAuth(true);
+        userCtx.saveUserProfile(responseData.user._id);
+        console.log(userCtx.user);
+        console.log(responseData.user._id);
         navigate("/");
       }
     }
@@ -60,7 +64,7 @@ const SellerLogin = () => {
         <>
           <CloseIcon>
             <Link style={{ color: "black" }} to="/">
-              {/* <Close style={{ fontSize: 28 }} /> */}X
+              <FaPlus style={{ transform: "rotate(45deg)", fontSize: 30 }} />
             </Link>
           </CloseIcon>
           <form onSubmit={loginUserHandler}>
